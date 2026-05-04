@@ -1,332 +1,788 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Orbixen Digital | Transforming Ideas Into Digital Success</title>
-  
-  <!-- Favicon - Same "O" as Footer -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230A84FF'/%3E%3Ctext x='50' y='68' font-size='65' text-anchor='middle' fill='white' font-weight='bold'%3EO%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-  
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-    .heading { font-family: 'Playfair Display', serif; }
-    .glass { background: rgba(17, 17, 17, 0.85); backdrop-filter: blur(20px); }
-    .hero-bg { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%); }
-    .card-hover:hover { transform: translateY(-12px); }
-    .profile-img {
-      border: 6px solid #0A84FF;
-      box-shadow: 0 25px 50px -12px rgb(10 132 255 / 0.4);
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Orbixen Digital | Transforming Ideas Into Digital Success</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #020812;
+    --bg2: #050f1f;
+    --cyan: #00d4ff;
+    --cyan2: #00a8cc;
+    --gold: #f0b429;
+    --gold2: #e09a10;
+    --white: #f0f6ff;
+    --muted: #7a8fa6;
+    --card: rgba(0,212,255,0.04);
+    --border: rgba(0,212,255,0.15);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 4px; }
+
+  /* CANVAS */
+  #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(2,8,18,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  nav.scrolled { padding: 12px 5%; background: rgba(2,8,18,0.97); }
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 1px;
+    transition: color 0.3s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--cyan); transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+    color: #000; padding: 10px 24px; border-radius: 6px;
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 1px;
+    text-decoration: none; transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(0,212,255,0.3);
+  }
+  .nav-cta:hover { box-shadow: 0 0 35px rgba(0,212,255,0.6); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--cyan); border-radius: 2px; transition: all 0.3s; }
+
+  /* HERO */
+  #home {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 120px 5% 80px;
+    text-align: center;
+  }
+  .hero-content { max-width: 860px; }
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold); padding: 6px 20px;
+    border-radius: 30px; font-size: 0.75rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeDown 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 24px;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+  .hero-title .line2 { color: var(--cyan); display: block; }
+  .hero-title .line3 { color: var(--gold); display: block; }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted); max-width: 600px; margin: 0 auto 40px;
+    line-height: 1.7; animation: fadeUp 0.9s 0.4s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.9s 0.6s ease both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+    color: #000; padding: 15px 36px; border-radius: 8px;
+    font-weight: 700; font-size: 0.95rem; letter-spacing: 1px;
+    text-decoration: none; border: none; cursor: pointer;
+    box-shadow: 0 0 30px rgba(0,212,255,0.4);
+    transition: all 0.3s; display: inline-block;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .btn-primary:hover { box-shadow: 0 0 50px rgba(0,212,255,0.7); transform: translateY(-2px); }
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-outline {
+    border: 1px solid var(--border); color: var(--white);
+    padding: 15px 36px; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.3s; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.05); }
+  .hero-founder {
+    margin-top: 50px; display: flex; align-items: center; justify-content: center;
+    gap: 12px; color: var(--muted); font-size: 0.85rem;
+    animation: fadeUp 0.9s 0.8s ease both;
+  }
+  .hero-founder::before { content: ''; width: 40px; height: 1px; background: var(--border); }
+  .hero-founder::after { content: ''; width: 40px; height: 1px; background: var(--border); }
+  .stats-row {
+    display: flex; justify-content: center; gap: 48px;
+    margin-top: 60px; flex-wrap: wrap;
+    animation: fadeUp 0.9s 1s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem; font-weight: 900; color: var(--cyan);
+    display: block;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; margin-top: 4px; }
+
+  /* SECTION BASE */
+  section { position: relative; z-index: 1; padding: 100px 5%; }
+  .section-tag {
+    display: inline-block; color: var(--cyan);
+    font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 12px; font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; margin-bottom: 16px;
+  }
+  .section-sub { color: var(--muted); max-width: 560px; line-height: 1.7; }
+
+  /* ABOUT */
+  #about { background: var(--bg2); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 60px auto 0; }
+  .about-text .section-sub { max-width: 100%; margin-bottom: 28px; }
+  .about-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .pillar {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px;
+    transition: all 0.3s;
+  }
+  .pillar:hover { border-color: var(--cyan); transform: translateY(-3px); }
+  .pillar h4 { font-size: 0.85rem; color: var(--cyan); margin-bottom: 8px; letter-spacing: 1px; }
+  .pillar p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .why-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 0.95rem; color: var(--muted);
+  }
+  .why-list li::before { content: '→'; color: var(--cyan); flex-shrink: 0; }
+  .founder-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 36px; text-align: center;
+    transition: all 0.4s;
+    position: relative; overflow: hidden;
+  }
+  .founder-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(0,212,255,0.08) 0%, transparent 60%);
+  }
+  .founder-card:hover { border-color: var(--cyan); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,212,255,0.1); }
+  .founder-img {
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 2px solid var(--cyan); margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg); font-size: 3rem;
+    box-shadow: 0 0 30px rgba(0,212,255,0.2);
+    overflow: hidden;
+  }
+  .founder-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .founder-name { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+  .founder-role { color: var(--cyan); font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 16px; }
+  .founder-bio { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 24px; }
+  .founder-links { display: flex; gap: 12px; justify-content: center; }
+  .founder-links a {
+    border: 1px solid var(--border); color: var(--white);
+    padding: 8px 18px; border-radius: 6px; font-size: 0.8rem;
+    text-decoration: none; transition: all 0.3s;
+  }
+  .founder-links a:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* SERVICES */
+  #services { background: var(--bg); }
+  .services-header { text-align: center; margin-bottom: 60px; }
+  .services-header .section-sub { margin: 0 auto; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+  .service-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 32px;
+    transition: all 0.4s; cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+  .service-card::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: linear-gradient(90deg, var(--cyan), var(--gold));
+    transform: scaleX(0); transition: transform 0.4s;
+  }
+  .service-card:hover { border-color: rgba(0,212,255,0.4); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,212,255,0.08); }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-icon { font-size: 2.2rem; margin-bottom: 16px; }
+  .service-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 12px; color: var(--white); }
+  .service-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.65; margin-bottom: 20px; }
+  .service-link { color: var(--cyan); font-size: 0.85rem; font-weight: 600; text-decoration: none; letter-spacing: 1px; transition: letter-spacing 0.3s; }
+  .service-card:hover .service-link { letter-spacing: 2px; }
+
+  /* PORTFOLIO */
+  #portfolio { background: var(--bg2); }
+  .portfolio-header { text-align: center; margin-bottom: 60px; }
+  .portfolio-header .section-sub { margin: 0 auto; }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto 40px; }
+  .portfolio-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 36px 28px;
+    transition: all 0.4s; position: relative; overflow: hidden;
+  }
+  .portfolio-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 100%, rgba(0,212,255,0.06) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .portfolio-card:hover { border-color: var(--cyan); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,212,255,0.1); }
+  .portfolio-card:hover::before { opacity: 1; }
+  .portfolio-icon { font-size: 2.5rem; margin-bottom: 18px; }
+  .portfolio-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+  .portfolio-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+  .portfolio-cta { text-align: center; margin-top: 20px; }
+
+  /* CONTACT */
+  #contact { background: var(--bg); }
+  .contact-wrapper { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+  .contact-info .section-sub { max-width: 100%; margin: 16px 0 32px; }
+  .contact-items { display: flex; flex-direction: column; gap: 16px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+    transition: all 0.3s;
+  }
+  .contact-item:hover { border-color: var(--cyan); }
+  .contact-item-icon { font-size: 1.4rem; }
+  .contact-item-text { font-size: 0.9rem; color: var(--muted); }
+  .contact-item-text strong { color: var(--white); display: block; margin-bottom: 2px; }
+  .contact-form {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 40px;
+  }
+  .form-title { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; margin-bottom: 28px; color: var(--cyan); }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 0.8rem; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; background: rgba(0,212,255,0.03);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 16px; color: var(--white);
+    font-family: 'Outfit', sans-serif; font-size: 0.95rem;
+    outline: none; transition: border-color 0.3s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--cyan); }
+  .form-group textarea { height: 120px; resize: vertical; }
+  .form-group select option { background: var(--bg2); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .submit-btn {
+    width: 100%; background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+    color: #000; border: none; padding: 15px;
+    border-radius: 8px; font-weight: 700; font-size: 0.95rem;
+    letter-spacing: 1px; cursor: pointer; transition: all 0.3s;
+    box-shadow: 0 0 25px rgba(0,212,255,0.3);
+    position: relative; overflow: hidden;
+  }
+  .submit-btn:hover { box-shadow: 0 0 45px rgba(0,212,255,0.6); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 40px 5%; text-align: center;
+    position: relative; z-index: 1;
+  }
+  .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--cyan); margin-bottom: 12px; }
+  .footer-logo span { color: var(--gold); }
+  .footer-text { color: var(--muted); font-size: 0.85rem; }
+
+  /* FLOATING WHATSAPP */
+  .whatsapp-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 200;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #25D366; display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    text-decoration: none; transition: all 0.3s;
+    animation: pulse-green 2s infinite;
+  }
+  .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 4px 30px rgba(37,211,102,0.7); }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pulse-green { 0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); } 50% { box-shadow: 0 4px 35px rgba(37,211,102,0.7); } }
+  @keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 20px rgba(0,212,255,0.3); } 50% { box-shadow: 0 0 40px rgba(0,212,255,0.6); } }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* MOBILE NAV */
+  .mobile-nav {
+    display: none; flex-direction: column;
+    position: fixed; inset: 0; z-index: 99;
+    background: rgba(2,8,18,0.98); backdrop-filter: blur(20px);
+    align-items: center; justify-content: center; gap: 32px;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { color: var(--white); text-decoration: none; font-size: 1.4rem; font-family: 'Orbitron', sans-serif; transition: color 0.3s; }
+  .mobile-nav a:hover { color: var(--cyan); }
+  .mobile-close { position: absolute; top: 28px; right: 28px; font-size: 2rem; color: var(--muted); cursor: pointer; line-height: 1; }
+
+  /* GLOWING LINE DIVIDER */
+  .glow-line { height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); margin: 0; opacity: 0.4; }
+
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact-wrapper { grid-template-columns: 1fr; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 600px) {
+    .stats-row { gap: 24px; }
+    .about-pillars { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-form { padding: 28px 20px; }
+  }
+</style>
 </head>
-<body class="bg-black text-gray-200">
+<body>
 
-  <!-- Navbar -->
-  <nav class="fixed top-0 w-full z-50 glass border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      
-      <!-- Logo -->
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl">O</div>
-        <div class="text-lg md:text-2xl font-semibold">Orbixen <span class="text-blue-400">Digital</span></div>
-      </div>
-  
-      <!-- Desktop Menu -->
-      <div class="hidden md:flex gap-8 text-sm font-medium">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact</a>
-      </div>
-  
-      <!-- Mobile Button -->
-      <button id="menuBtn" class="md:hidden text-2xl">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-  
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="hidden flex-col bg-black px-6 pb-4 md:hidden">
-      <a href="#home" class="py-2">Home</a>
-      <a href="#about" class="py-2">About</a>
-      <a href="#services" class="py-2">Services</a>
-      <a href="#portfolio" class="py-2">Portfolio</a>
-      <a href="#contact" class="py-2">Contact</a>
-    </div>
-  </nav>
+<!-- PARTICLE CANVAS -->
+<canvas id="canvas"></canvas>
 
-  <!-- Hero -->
-  <section id="home" class="hero-bg min-h-screen flex items-center pt-20">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <h1 class="heading text-6xl md:text-7xl font-bold leading-tight text-white mb-6">
-        Transforming Ideas Into<br><span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Digital Success</span>
-      </h1>
-      <p class="text-2xl text-gray-400 max-w-3xl mx-auto mb-12">
-        We help startups, SMEs, and enterprises scale with powerful websites, strategic marketing, and tailored technology solutions.
-      </p>
-      <div class="flex flex-wrap justify-center gap-5">
-        <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-2xl font-semibold text-lg flex items-center gap-3 transition">
-          Book Free Consultation <i class="fas fa-arrow-right"></i>
-        </a>
-        <a href="https://mrusama1002.github.io/portfolio/" target="_blank" class="border border-white/40 hover:border-white px-10 py-4 rounded-2xl font-medium text-lg transition">
-          View Portfolio
-        </a>
-      </div>
-      <div class="mt-16 text-sm text-gray-500">Founder & CEO • Muhammad Usama Khan</div>
-    </div>
-  </section>
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav" id="mobileNav">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="#home" onclick="closeMobileNav()">Home</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#portfolio" onclick="closeMobileNav()">Portfolio</a>
+  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  <a href="#contact" class="btn-primary" onclick="closeMobileNav()">Free Consultation</a>
+</div>
 
-  <!-- About -->
-  <section id="about" class="py-24 bg-zinc-950">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 gap-16 items-center">
-        <div>
-          <h2 class="heading text-5xl font-bold mb-8">Premium Digital Solutions for Ambitious Businesses</h2>
-          <p class="text-lg text-gray-400 leading-relaxed mb-8">
-            Orbixen Digital is a full-service software house specializing in custom web development, e-commerce, digital marketing, and business growth strategies.
-          </p>
-          <div class="grid grid-cols-2 gap-8">
-            <div>
-              <h4 class="font-semibold text-blue-400 mb-2">Our Mission</h4>
-              <p class="text-gray-400">Deliver measurable digital growth through innovative technology and strategic marketing.</p>
-            </div>
-            <div>
-              <h4 class="font-semibold text-blue-400 mb-2">Our Vision</h4>
-              <p class="text-gray-400">Become the trusted partner for businesses that want to lead in the digital era.</p>
-            </div>
-          </div>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">ORBIXEN<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Free Consultation</a>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-content">
+    <div class="hero-badge">🚀 Premium Software House & Digital Agency</div>
+    <h1 class="hero-title">
+      Transforming Ideas
+      <span class="line2">Into Digital</span>
+      <span class="line3">Success</span>
+    </h1>
+    <p class="hero-sub">We help startups, SMEs, and enterprises scale with powerful websites, strategic marketing, and tailored technology solutions.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">📅 Book Free Consultation</a>
+      <a href="https://mrusama1002.github.io/portfolio/" class="btn-outline" target="_blank">View Portfolio →</a>
+    </div>
+    <div class="hero-founder">Founder & CEO • Muhammad Usama Khan</div>
+    <div class="stats-row">
+      <div class="stat"><span class="stat-num" data-count="8">0</span><span class="stat-label">PROJECTS</span></div>
+      <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-label">INDUSTRIES</span></div>
+      <div class="stat"><span class="stat-num" data-count="100">0</span><span class="stat-label">% COMMITMENT</span></div>
+      <div class="stat"><span class="stat-num" data-count="24">0</span><span class="stat-label">HR SUPPORT</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal-left">
+      <span class="section-tag">About Us</span>
+      <h2 class="section-title">Premium Digital Solutions for Ambitious Businesses</h2>
+      <p class="section-sub">Orbixen Digital is a full-service software house specializing in custom web development, e-commerce, digital marketing, and business growth strategies.</p>
+      <div class="about-pillars">
+        <div class="pillar">
+          <h4>🎯 Our Mission</h4>
+          <p>Deliver measurable digital growth through innovative technology and strategic marketing.</p>
         </div>
-        <div class="bg-zinc-900 p-10 rounded-3xl">
-          <h3 class="text-2xl font-semibold mb-6">Why Choose Orbixen Digital?</h3>
-          <ul class="space-y-6">
-            <li class="flex gap-4"><i class="fas fa-check-circle text-blue-500 mt-1"></i><span>Custom solutions tailored to your business goals</span></li>
-            <li class="flex gap-4"><i class="fas fa-check-circle text-blue-500 mt-1"></i><span>Proven track record in web & marketing</span></li>
-            <li class="flex gap-4"><i class="fas fa-check-circle text-blue-500 mt-1"></i><span>Founder-led with hands-on expertise</span></li>
-            <li class="flex gap-4"><i class="fas fa-check-circle text-blue-500 mt-1"></i><span>Focus on scalability and ROI</span></li>
-          </ul>
+        <div class="pillar">
+          <h4>🔭 Our Vision</h4>
+          <p>Become the trusted partner for businesses that want to lead in the digital era.</p>
         </div>
       </div>
+      <ul class="why-list">
+        <li>Custom solutions tailored to your business goals</li>
+        <li>Proven track record in web & marketing</li>
+        <li>Founder-led with hands-on expertise</li>
+        <li>Focus on scalability and ROI</li>
+      </ul>
     </div>
-  </section>
-
-  <!-- Our Story -->
-  <section id="story" class="py-24 bg-black">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="heading text-5xl font-bold mb-4">Our Story</h2>
-        <p class="text-gray-400 text-xl">Led by vision. Built with experience.</p>
-      </div>
-      <div class="max-w-5xl mx-auto bg-zinc-900 rounded-3xl overflow-hidden">
-        <div class="grid md:grid-cols-5 gap-0">
-          <div class="md:col-span-2 bg-zinc-950 flex items-center justify-center p-12">
-            <img 
-              src="https://mrusama1002.github.io/orbixen-digital/profile.jpg"
-              alt="Muhammad Usama Khan - Founder & CEO of Orbixen Digital"
-              class="profile-img w-80 h-80 object-cover rounded-3xl"
-              onerror="this.src='https://via.placeholder.com/400x400/1f2937/ffffff?text=Muhammad+Usama+Khan';"
-            >
-          </div>
-          <div class="md:col-span-3 p-12 md:p-16 flex flex-col justify-center">
-            <h3 class="text-4xl font-bold mb-2">Muhammad Usama Khan</h3>
-            <p class="text-blue-400 text-xl mb-8">Founder & CEO, Orbixen Digital</p>
-            <div class="space-y-6 text-lg text-gray-300 leading-relaxed">
-              <p>
-                With extensive experience in software development and business development, I founded 
-                <span class="font-semibold text-white">Orbixen Digital</span> to help businesses transform their ideas into successful digital realities.
-              </p>
-              <p>
-                My journey has taught me that true digital success comes from combining powerful technology, 
-                strategic marketing, and a deep understanding of business growth.
-              </p>
-              <p>
-                At Orbixen Digital, we don't just build websites or run ads — we build systems that scale and deliver measurable results.
-              </p>
-            </div>
-            <div class="mt-12 flex flex-wrap gap-4">
-              <a href="https://mrusama1002.github.io/portfolio/" target="_blank" 
-                 class="flex-1 bg-white text-black py-4 rounded-2xl font-semibold text-center hover:bg-gray-100 transition flex items-center justify-center gap-2">
-                <i class="fas fa-briefcase"></i> View My Portfolio
-              </a>
-              <a href="https://www.linkedin.com/in/mr-usama-khan" target="_blank" 
-                 class="flex-1 border border-white/40 py-4 rounded-2xl font-semibold text-center hover:bg-white/10 transition flex items-center justify-center gap-2">
-                <i class="fab fa-linkedin"></i> Connect on LinkedIn
-              </a>
-            </div>
-          </div>
+    <div class="reveal-right">
+      <div class="founder-card">
+        <div class="founder-img">
+          <img src="https://mrusama1002.github.io/orbixen-digital/profile.jpg" alt="Muhammad Usama Khan" onerror="this.parentElement.innerHTML='👨‍💻'"/>
+        </div>
+        <div class="founder-name">Muhammad Usama Khan</div>
+        <div class="founder-role">Founder & CEO, Orbixen Digital</div>
+        <p class="founder-bio">With extensive experience in software development and business development, I founded Orbixen Digital to help businesses transform their ideas into successful digital realities. At Orbixen Digital, we don't just build websites or run ads — we build systems that scale and deliver measurable results.</p>
+        <div class="founder-links">
+          <a href="https://mrusama1002.github.io/portfolio/" target="_blank">🌐 Portfolio</a>
+          <a href="https://www.linkedin.com/in/mr-usama-khan" target="_blank">💼 LinkedIn</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Services -->
-  <section id="services" class="py-24 bg-zinc-950">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="heading text-5xl font-bold">Our Services</h2>
-        <p class="text-gray-400 mt-4 text-xl">End-to-end digital solutions designed for business growth and scalability</p>
-      </div>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-zinc-900 p-8 rounded-3xl card-hover transition-all">
-          <div class="text-5xl mb-6">🌐</div>
-          <h3 class="text-2xl font-semibold mb-3">Web Development</h3>
-          <p class="text-gray-400 mb-6">High-performance, responsive websites built with modern frameworks like React, Next.js, and Tailwind CSS.</p>
-          <a href="#contact" class="text-blue-400 font-medium hover:underline">Get a quote →</a>
-        </div>
+<div class="glow-line"></div>
 
-        <div class="bg-zinc-900 p-8 rounded-3xl card-hover transition-all">
-          <div class="text-5xl mb-6">🎨</div>
-          <h3 class="text-2xl font-semibold mb-3">Custom Website Design & Development</h3>
-          <p class="text-gray-400 mb-6">Unique, brand-focused designs with pixel-perfect implementation and seamless user experience.</p>
-          <a href="#contact" class="text-blue-400 font-medium hover:underline">Get a quote →</a>
-        </div>
-
-        <div class="bg-zinc-900 p-8 rounded-3xl card-hover transition-all">
-          <div class="text-5xl mb-6">🛒</div>
-          <h3 class="text-2xl font-semibold mb-3">Shopify Store Management</h3>
-          <p class="text-gray-400 mb-6">Complete Shopify development, theme customization, store optimization, and ongoing management.</p>
-          <a href="#contact" class="text-blue-400 font-medium hover:underline">Get a quote →</a>
-        </div>
-
-        <div class="bg-zinc-900 p-8 rounded-3xl card-hover transition-all">
-          <div class="text-5xl mb-6">📘</div>
-          <h3 class="text-2xl font-semibold mb-3">Facebook Ads Marketing</h3>
-          <p class="text-gray-400 mb-6">Targeted ad campaigns on Facebook & Instagram to generate high-quality leads and sales.</p>
-          <a href="#contact" class="text-blue-400 font-medium hover:underline">Get a quote →</a>
-        </div>
-
-        <div class="bg-zinc-900 p-8 rounded-3xl card-hover transition-all">
-          <div class="text-5xl mb-6">🎵</div>
-          <h3 class="text-2xl font-semibold mb-3">TikTok Ads Marketing</h3>
-          <p class="text-gray-400 mb-6">Creative and high-engagement TikTok advertising campaigns to boost brand awareness and conversions.</p>
-          <a href="#contact" class="text-blue-400 font-medium hover:underline">Get a quote →</a>
-        </div>
-
-        <div class="bg-zinc-900 p-8 rounded-3xl card-hover transition-all">
-          <div class="text-5xl mb-6">📈</div>
-          <h3 class="text-2xl font-semibold mb-3">Business Development Solutions</h3>
-          <p class="text-gray-400 mb-6">Strategic consulting to expand your market reach, increase revenue, and scale operations.</p>
-          <a href="#contact" class="text-blue-400 font-medium hover:underline">Get a quote →</a>
-        </div>
-
-        <div class="bg-zinc-900 p-8 rounded-3xl card-hover transition-all">
-          <div class="text-5xl mb-6">🔍</div>
-          <h3 class="text-2xl font-semibold mb-3">Technology Assessment & Consulting</h3>
-          <p class="text-gray-400 mb-6">In-depth analysis of your current systems with clear recommendations for digital transformation.</p>
-          <a href="#contact" class="text-blue-400 font-medium hover:underline">Get a quote →</a>
-        </div>
-
-        <div class="bg-zinc-900 p-8 rounded-3xl card-hover transition-all">
-          <div class="text-5xl mb-6">📋</div>
-          <h3 class="text-2xl font-semibold mb-3">Tailored IT Strategies</h3>
-          <p class="text-gray-400 mb-6">Custom IT roadmaps aligned with your long-term business goals and growth objectives.</p>
-          <a href="#contact" class="text-blue-400 font-medium hover:underline">Get a quote →</a>
-        </div>
-      </div>
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <span class="section-tag">What We Do</span>
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-sub">End-to-end digital solutions designed for business growth and scalability.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal" style="transition-delay:0.05s">
+      <div class="service-icon">🌐</div>
+      <div class="service-title">Web Development</div>
+      <p class="service-desc">High-performance, responsive websites built with modern frameworks like React, Next.js, and Tailwind CSS.</p>
+      <a href="#contact" class="service-link">Get a quote →</a>
     </div>
-  </section>
+    <div class="service-card reveal" style="transition-delay:0.1s">
+      <div class="service-icon">🎨</div>
+      <div class="service-title">Custom Website Design</div>
+      <p class="service-desc">Unique, brand-focused designs with pixel-perfect implementation and seamless user experience.</p>
+      <a href="#contact" class="service-link">Get a quote →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.15s">
+      <div class="service-icon">🛒</div>
+      <div class="service-title">Shopify Store Management</div>
+      <p class="service-desc">Complete Shopify development, theme customization, store optimization, and ongoing management.</p>
+      <a href="#contact" class="service-link">Get a quote →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.2s">
+      <div class="service-icon">📘</div>
+      <div class="service-title">Facebook Ads Marketing</div>
+      <p class="service-desc">Targeted ad campaigns on Facebook & Instagram to generate high-quality leads and sales.</p>
+      <a href="#contact" class="service-link">Get a quote →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.25s">
+      <div class="service-icon">🎵</div>
+      <div class="service-title">TikTok Ads Marketing</div>
+      <p class="service-desc">Creative and high-engagement TikTok advertising campaigns to boost brand awareness and conversions.</p>
+      <a href="#contact" class="service-link">Get a quote →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.3s">
+      <div class="service-icon">📈</div>
+      <div class="service-title">Business Development</div>
+      <p class="service-desc">Strategic consulting to expand your market reach, increase revenue, and scale operations effectively.</p>
+      <a href="#contact" class="service-link">Get a quote →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.35s">
+      <div class="service-icon">🔍</div>
+      <div class="service-title">Technology Assessment</div>
+      <p class="service-desc">In-depth analysis of your current systems with clear recommendations for digital transformation.</p>
+      <a href="#contact" class="service-link">Get a quote →</a>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.4s">
+      <div class="service-icon">📋</div>
+      <div class="service-title">Tailored IT Strategies</div>
+      <p class="service-desc">Custom IT roadmaps aligned with your long-term business goals and growth objectives.</p>
+      <a href="#contact" class="service-link">Get a quote →</a>
+    </div>
+  </div>
+</section>
 
-  <!-- Portfolio -->
-  <section id="portfolio" class="py-24 bg-black">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="heading text-5xl font-bold">Featured Projects</h2>
-        <p class="text-gray-400 mt-4 text-xl">Real results delivered for our clients</p>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-zinc-900 rounded-3xl overflow-hidden card-hover transition-all">
-          <div class="h-56 bg-gradient-to-br from-amber-800 to-orange-900 flex items-center justify-center text-7xl">👜</div>
-          <div class="p-8">
-            <h3 class="text-2xl font-semibold mb-2">The Leather Factor</h3>
-            <p class="text-gray-400">Complete branding, custom website design & full development</p>
+<div class="glow-line"></div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-header reveal">
+    <span class="section-tag">Our Work</span>
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-sub">Real results delivered for our clients.</p>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-card reveal" style="transition-delay:0.05s">
+      <div class="portfolio-icon">👜</div>
+      <div class="portfolio-title">The Leather Factor</div>
+      <p class="portfolio-desc">Complete branding, custom website design & full development for a premium leather goods brand.</p>
+    </div>
+    <div class="portfolio-card reveal" style="transition-delay:0.1s">
+      <div class="portfolio-icon">📅</div>
+      <div class="portfolio-title">BookingWhizz CRM</div>
+      <p class="portfolio-desc">Complete CRM with reporting, upselling & WhatsApp META integration for seamless customer management.</p>
+    </div>
+    <div class="portfolio-card reveal" style="transition-delay:0.15s">
+      <div class="portfolio-icon">💰</div>
+      <div class="portfolio-title">POS System</div>
+      <p class="portfolio-desc">Modern Point of Sale with inventory and sales tracking for retail business operations.</p>
+    </div>
+    <div class="portfolio-card reveal" style="transition-delay:0.2s">
+      <div class="portfolio-icon">📚</div>
+      <div class="portfolio-title">Fortune Academy</div>
+      <p class="portfolio-desc">Online learning portal for students and teachers with full course management capabilities.</p>
+    </div>
+  </div>
+  <div class="portfolio-cta reveal">
+    <a href="https://mrusama1002.github.io/portfolio/" target="_blank" class="btn-outline">Explore Full Portfolio →</a>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrapper">
+    <div class="reveal-left">
+      <span class="section-tag">Get In Touch</span>
+      <h2 class="section-title">Let's Build Something Great Together</h2>
+      <p class="section-sub">Ready to take your business to the next level? Book a free consultation today.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <span class="contact-item-icon">📍</span>
+          <div class="contact-item-text">
+            <strong>Location</strong>
+            75 Exploration Dr, Leicester LE4 5NU, United Kingdom
           </div>
         </div>
-        <div class="bg-zinc-900 rounded-3xl overflow-hidden card-hover transition-all">
-          <div class="h-56 bg-gradient-to-br from-emerald-800 to-teal-900 flex items-center justify-center text-7xl">📅</div>
-          <div class="p-8">
-            <h3 class="text-2xl font-semibold mb-2">BookingWhizz CRM</h3>
-            <p class="text-gray-400">Complete CRM with reporting, upselling & WhatsApp META integration</p>
+        <div class="contact-item">
+          <span class="contact-item-icon">💼</span>
+          <div class="contact-item-text">
+            <strong>LinkedIn</strong>
+            linkedin.com/in/mr-usama-khan
           </div>
         </div>
-        <div class="bg-zinc-900 rounded-3xl overflow-hidden card-hover transition-all">
-          <div class="h-56 bg-gradient-to-br from-purple-800 to-violet-900 flex items-center justify-center text-7xl">💰</div>
-          <div class="p-8">
-            <h3 class="text-2xl font-semibold mb-2">POS System</h3>
-            <p class="text-gray-400">Modern Point of Sale with inventory and sales tracking</p>
+        <!-- <div class="contact-item">
+          <span class="contact-item-icon">🌐</span>
+          <div class="contact-item-text">
+            <strong>Portfolio</strong>
+            mrusama1002.github.io/portfolio
           </div>
-        </div>
-        <div class="bg-zinc-900 rounded-3xl overflow-hidden card-hover transition-all">
-          <div class="h-56 bg-gradient-to-br from-blue-800 to-indigo-900 flex items-center justify-center text-7xl">📚</div>
-          <div class="p-8">
-            <h3 class="text-2xl font-semibold mb-2">Fortune Academy</h3>
-            <p class="text-gray-400">Online learning portal for students and teachers</p>
+        </div> -->
+        <div class="contact-item" style="border-color:rgba(37,211,102,0.3)">
+          <span class="contact-item-icon">💬</span>
+          <div class="contact-item-text">
+            <strong>WhatsApp</strong>
+            Click the green button → bottom right
           </div>
         </div>
       </div>
-      <div class="text-center mt-16">
-        <a href="https://mrusama1002.github.io/portfolio/" target="_blank" class="inline-flex items-center gap-3 bg-white text-black px-10 py-5 rounded-2xl font-semibold hover:bg-gray-200 transition">
-          Explore Full Personal Portfolio <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
     </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="py-24 bg-zinc-950">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="heading text-5xl font-bold text-center mb-4">Let's Build Something Great Together</h2>
-      <p class="text-center text-gray-400 mb-12">Ready to take your business to the next level?</p>
-      <form class="space-y-8 bg-zinc-900 p-10 rounded-3xl" onsubmit="handleSubmit(event)">
-        <div class="grid md:grid-cols-2 gap-8">
-          <input type="text" placeholder="Your Name" class="bg-black border border-white/20 rounded-2xl px-6 py-4 focus:outline-none focus:border-blue-500" required/>
-          <input type="email" placeholder="Business Email" class="bg-black border border-white/20 rounded-2xl px-6 py-4 focus:outline-none focus:border-blue-500" required/>
+    <div class="contact-form reveal-right">
+      <div class="form-title">Send a Message</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>FIRST NAME</label>
+          <input type="text" placeholder="John"/>
         </div>
-        <textarea placeholder="Tell us about your project..." rows="6" class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:outline-none focus:border-blue-500"></textarea>
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 py-5 rounded-2xl font-semibold text-lg transition">Send Message – Start Free Consultation</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-black border-t border-white/10 py-16">
-    <div class="max-w-7xl mx-auto px-6 text-center text-sm text-gray-500">
-      <div class="flex justify-center gap-3 mb-6">
-        <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-2xl">O</div>
+        <div class="form-group">
+          <label>LAST NAME</label>
+          <input type="text" placeholder="Doe"/>
+        </div>
       </div>
-      <p>© 2026 Orbixen Digital • Founded by Muhammad Usama Khan</p>
+      <div class="form-group">
+        <label>EMAIL ADDRESS</label>
+        <input type="email" placeholder="john@company.com"/>
+      </div>
+      <div class="form-group">
+        <label>SERVICE NEEDED</label>
+        <select>
+          <option value="">Select a service...</option>
+          <option>Web Development</option>
+          <option>Custom Website Design</option>
+          <option>Shopify Store Management</option>
+          <option>Facebook Ads Marketing</option>
+          <option>TikTok Ads Marketing</option>
+          <option>Business Development</option>
+          <option>Technology Assessment</option>
+          <option>Tailored IT Strategies</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>YOUR MESSAGE</label>
+        <textarea placeholder="Tell us about your project and goals..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="handleSubmit(this)">🚀 Send Message – Start Free Consultation</button>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <!-- Floating WhatsApp -->
-  <a href="https://wa.me/923322208090" target="_blank" class="fixed bottom-8 right-8 bg-green-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition text-white text-4xl z-50">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ORBIXEN<span>.</span>DIGITAL</div>
+  <p class="footer-text">© 2026 Orbixen Digital • Founded by Muhammad Usama Khan • Transforming Ideas Into Digital Success</p>
+</footer>
 
-  <script>
-    function handleSubmit(e) {
-      e.preventDefault();
-      alert("Thank you! Your message has been received. We'll get back to you shortly.");
-      e.target.reset();
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/923322208090" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<script>
+// PARTICLE NETWORK
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let particles = [], W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.r = Math.random() * 1.8 + 0.5;
+    this.alpha = Math.random() * 0.6 + 0.2;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,212,255,${this.alpha})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 90; i++) particles.push(new Particle());
+
+function drawLines() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 130) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,212,255,${0.12 * (1 - d/130)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
     }
+  }
+}
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        if (this.getAttribute('href') !== '#') {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawLines();
+  requestAnimationFrame(animate);
+}
+animate();
 
-    document.getElementById("menuBtn").onclick = () => {
-  document.getElementById("mobileMenu").classList.toggle("hidden");
-};
-  </script>
+// NAV SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// HAMBURGER
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileNav').classList.add('open');
+});
+document.getElementById('mobileClose').addEventListener('click', closeMobileNav);
+function closeMobileNav() {
+  document.getElementById('mobileNav').classList.remove('open');
+}
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(r => observer.observe(r));
+
+// COUNT UP
+function countUp(el) {
+  const target = +el.dataset.count;
+  let cur = 0;
+  const step = Math.ceil(target / 60);
+  const interval = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = cur;
+    if (cur >= target) clearInterval(interval);
+  }, 25);
+}
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      countUp(e.target);
+      countObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+// FORM SUBMIT
+function handleSubmit(btn) {
+  btn.textContent = '✅ Message Sent! We\'ll be in touch soon.';
+  btn.style.background = 'linear-gradient(135deg, #00cc88, #009966)';
+  btn.style.boxShadow = '0 0 30px rgba(0,204,136,0.5)';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '🚀 Send Message – Start Free Consultation';
+    btn.style.background = '';
+    btn.style.boxShadow = '';
+    btn.disabled = false;
+  }, 4000);
+}
+</script>
 </body>
 </html>
