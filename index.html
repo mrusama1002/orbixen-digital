@@ -205,6 +205,38 @@ textarea.fg-input{height:110px;resize:vertical;clip-path:none;}
 .team-role{font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--neon);margin-bottom:8px;font-weight:700;}
 .team-loc{font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);}
 .team-tag{display:inline-block;border:1px solid rgba(0,255,247,0.15);padding:2px 8px;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;}
+
+/* PRICING */
+.pricing-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:40px auto 0;max-width:1200px;justify-content:center;}
+.ptab{border:1px solid var(--border);background:transparent;color:var(--muted);padding:8px 20px;font-family:'Chakra Petch',sans-serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.ptab.active,.ptab:hover{border-color:var(--neon);color:var(--neon);background:rgba(0,255,247,0.05);}
+.pricing-panel{display:none;max-width:1200px;margin:40px auto 0;}
+.pricing-panel.active{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.price-card{border:1px solid var(--border);background:var(--card);backdrop-filter:blur(16px);padding:32px 28px;position:relative;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:all .4s;}
+.price-card:hover{border-color:rgba(0,255,247,0.4);transform:translateY(-6px);box-shadow:0 0 40px rgba(0,255,247,0.08);}
+.price-card.featured{border-color:var(--neon);box-shadow:0 0 30px rgba(0,255,247,0.12);}
+.price-badge{position:absolute;top:-1px;right:24px;background:var(--neon);color:var(--bg);font-family:'Russo One',sans-serif;font-size:0.6rem;letter-spacing:3px;padding:4px 12px;clip-path:polygon(0 0,100% 0,calc(100% - 6px) 100%,6px 100%);}
+.price-tier{font-size:0.62rem;letter-spacing:4px;text-transform:uppercase;color:var(--neon);font-weight:700;margin-bottom:10px;}
+.price-name{font-family:'Russo One',sans-serif;font-size:1.3rem;letter-spacing:0.05em;margin-bottom:20px;}
+.price-amount{display:flex;align-items:flex-end;gap:10px;margin-bottom:6px;}
+.price-old{font-family:'Space Mono',monospace;font-size:0.9rem;color:var(--muted);text-decoration:line-through;align-self:center;}
+.price-new{font-family:'Russo One',sans-serif;font-size:2.2rem;color:var(--neon);text-shadow:0 0 20px rgba(0,255,247,0.4);line-height:1;}
+.price-period{font-size:0.7rem;color:var(--muted);margin-bottom:20px;font-family:'Space Mono',monospace;}
+.price-divider{height:1px;background:var(--border);margin:20px 0;}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px;}
+.price-features li{font-family:'Space Mono',monospace;font-size:0.74rem;color:var(--muted);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+.price-features li::before{content:'▶';color:var(--neon);font-size:0.5rem;margin-top:3px;flex-shrink:0;}
+.price-features li.dim::before{color:rgba(0,255,247,0.2);}
+.price-features li.dim{opacity:0.4;}
+.price-cta{display:block;width:100%;text-align:center;border:1px solid var(--neon);color:var(--neon);padding:13px;font-family:'Chakra Petch',sans-serif;font-size:0.78rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;text-decoration:none;transition:all .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);background:transparent;cursor:pointer;position:relative;overflow:hidden;}
+.price-cta::before{content:'';position:absolute;inset:0;background:var(--neon);transform:translateX(-101%);transition:transform .3s;}
+.price-cta:hover::before{transform:translateX(0);}
+.price-cta span{position:relative;z-index:1;}
+.price-card.featured .price-cta{background:rgba(0,255,247,0.08);}
+.price-guarantee{display:flex;gap:8px;flex-wrap:wrap;margin:40px auto 0;max-width:1200px;}
+.pg-item{flex:1;min-width:140px;border:1px solid rgba(0,255,247,0.08);padding:14px;text-align:center;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.pg-item span{display:block;font-size:1.2rem;margin-bottom:6px;}
+
 footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px solid var(--border);padding:36px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
 .f-logo-rf{font-family:'Russo One',sans-serif;font-size:1.2rem;letter-spacing:0.15em;color:var(--neon);text-shadow:0 0 20px rgba(0,255,247,0.4);}
 .f-copy{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--muted);}
@@ -301,6 +333,7 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
   <a href="#home" onclick="closeMob()">HOME</a>
   <a href="#about" onclick="closeMob()">ABOUT</a>
   <a href="#services" onclick="closeMob()">SERVICES</a>
+  <a href="#pricing" onclick="closeMob()">PRICING</a>
   <a href="#portfolio" onclick="closeMob()">WORK</a>
   <a href="#team" onclick="closeMob()">TEAM</a>
   <a href="#contact" onclick="closeMob()">CONTACT</a>
@@ -312,6 +345,7 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
     <li><a href="#portfolio">Work</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -337,7 +371,7 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
         <p class="hero-sub">We build <span>digital systems</span> that scale.<br/>Websites • Apps • Ads • Strategy.<br/>Offices in <span>UK & Canada</span> — Dev Hub in Pakistan.</p>
         <div style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap;">
           <a href="#contact" class="btn-neon"><span>▶ Book Free Consultation</span></a>
-          <a href="https://mrusama1002.github.io/portfolio/" class="btn-outline-neon" target="_blank">View Portfolio →</a>
+          <a href="#portfolio" class="btn-outline-neon">View Our Work →</a>
         </div>
       </div>
       <div class="hero-right">
@@ -355,8 +389,8 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
 <!-- TICKER -->
 <div class="ticker-strip">
   <div class="ticker-track">
-    <span class="t-item">Web Development</span><span class="t-item">Mobile Apps</span><span class="t-item">Shopify Stores</span><span class="t-item">Facebook Ads</span><span class="t-item">TikTok Marketing</span><span class="t-item">Business Software</span><span class="t-item">IT Strategy</span><span class="t-item">Digital Success</span>
-    <span class="t-item">Web Development</span><span class="t-item">Mobile Apps</span><span class="t-item">Shopify Stores</span><span class="t-item">Facebook Ads</span><span class="t-item">TikTok Marketing</span><span class="t-item">Business Software</span><span class="t-item">IT Strategy</span><span class="t-item">Digital Success</span>
+    <span class="t-item">Web Development</span><span class="t-item">Mobile Apps</span><span class="t-item">Shopify Stores</span><span class="t-item">Facebook Ads</span><span class="t-item">TikTok Marketing</span><span class="t-item">Ebook Design</span><span class="t-item">Content Writing</span><span class="t-item">Business Software</span><span class="t-item">IT Strategy</span><span class="t-item">Digital Success</span>
+    <span class="t-item">Web Development</span><span class="t-item">Mobile Apps</span><span class="t-item">Shopify Stores</span><span class="t-item">Facebook Ads</span><span class="t-item">TikTok Marketing</span><span class="t-item">Ebook Design</span><span class="t-item">Content Writing</span><span class="t-item">Business Software</span><span class="t-item">IT Strategy</span><span class="t-item">Digital Success</span>
   </div>
 </div>
 
@@ -373,7 +407,7 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
         <div class="about-list">
           <div class="ab-item"><span class="ab-num">01</span><div><div class="ab-title">Custom Solutions</div><div class="ab-desc">Every project tailored to your unique business goals. No templates, no shortcuts.</div></div></div>
           <div class="ab-item"><span class="ab-num">02</span><div><div class="ab-title">Proven Track Record</div><div class="ab-desc">Delivered across web, e-commerce, CRM, and digital marketing with measurable ROI.</div></div></div>
-          <div class="ab-item"><span class="ab-num">03</span><div><div class="ab-title">Founder-Led Expertise</div><div class="ab-desc">Hands-on leadership by Muhammad Usama Khan — not outsourced, not delegated.</div></div></div>
+          <div class="ab-item"><span class="ab-num">03</span><div><div class="ab-title">Expert-Led Delivery</div><div class="ab-desc">Hands-on execution by senior specialists — not outsourced, not delegated to juniors.</div></div></div>
           <div class="ab-item"><span class="ab-num">04</span><div><div class="ab-title">Mission</div><div class="ab-desc">Deliver measurable digital growth through innovative technology and strategy.</div></div></div>
           <div class="ab-item"><span class="ab-num">05</span><div><div class="ab-title">Vision</div><div class="ab-desc">Become the trusted digital partner for businesses that want to lead.</div></div></div>
         </div>
@@ -382,15 +416,29 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
         <div class="rf-card founder-rf">
           <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
           <div class="founder-rf-top">
-            <div class="founder-av"><img src="https://mrusama1002.github.io/orbixen-digital/profile.jpg" alt="Muhammad Usama Khan" onerror="this.parentElement.innerHTML='👨‍💻'"/></div>
-            <div class="founder-nm">MUHAMMAD USAMA KHAN</div>
-            <div class="founder-rl">Founder & CEO // Orbixen Digital</div>
+            <div class="founder-av" style="font-size:2.5rem;">🚀</div>
+            <div class="founder-nm">ORBIXEN DIGITAL</div>
+            <div class="founder-rl">Software House & Digital Agency</div>
           </div>
           <div class="founder-rf-bot">
-            <p class="founder-bio-rf">With extensive experience in software development and business development, I founded Orbixen Digital to help businesses transform their ideas into successful digital realities. We build systems that scale and deliver measurable results.</p>
-            <div class="founder-lnks">
-              <a href="https://mrusama1002.github.io/portfolio/" target="_blank">[ Portfolio ]</a>
-              <a href="https://www.linkedin.com/in/mr-usama-khan" target="_blank">[ LinkedIn ]</a>
+            <p class="founder-bio-rf">Orbixen Digital is a full-service software house across Pakistan, UK & Canada — delivering web, mobile, and digital marketing solutions for businesses that want to scale. No templates, no shortcuts. Just results.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">
+              <div style="border:1px solid var(--border);padding:12px;text-align:center;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">
+                <div style="font-family:'Russo One',sans-serif;font-size:1.4rem;color:var(--neon);">3</div>
+                <div style="font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">Countries</div>
+              </div>
+              <div style="border:1px solid var(--border);padding:12px;text-align:center;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">
+                <div style="font-family:'Russo One',sans-serif;font-size:1.4rem;color:var(--neon2);">11</div>
+                <div style="font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">Services</div>
+              </div>
+              <div style="border:1px solid var(--border);padding:12px;text-align:center;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">
+                <div style="font-family:'Russo One',sans-serif;font-size:1.4rem;color:var(--neon2);">24/7</div>
+                <div style="font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">Support</div>
+              </div>
+              <div style="border:1px solid var(--border);padding:12px;text-align:center;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">
+                <div style="font-family:'Russo One',sans-serif;font-size:1.4rem;color:var(--neon);">100%</div>
+                <div style="font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">Committed</div>
+              </div>
             </div>
           </div>
         </div>
@@ -417,6 +465,8 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
       <div class="rf-card svc-rf sr" style="transition-delay:.35s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="svc-num-rf">SVC // 07</div><span class="svc-icon-rf">📈</span><div class="svc-title-rf">Business Development</div><p class="svc-desc-rf">Strategic consulting to expand market reach, increase revenue and scale operations.</p><a href="#contact" class="svc-cta-rf">Get Quote →</a></div>
       <div class="rf-card svc-rf sr" style="transition-delay:.4s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="svc-num-rf">SVC // 08</div><span class="svc-icon-rf">🔍</span><div class="svc-title-rf">Technology Assessment</div><p class="svc-desc-rf">In-depth analysis with clear recommendations for your digital transformation.</p><a href="#contact" class="svc-cta-rf">Get Quote →</a></div>
       <div class="rf-card svc-rf sr" style="transition-delay:.45s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="svc-num-rf">SVC // 09</div><span class="svc-icon-rf">📋</span><div class="svc-title-rf">Tailored IT Strategies</div><p class="svc-desc-rf">Custom IT roadmaps aligned with your long-term business goals and objectives.</p><a href="#contact" class="svc-cta-rf">Get Quote →</a></div>
+      <div class="rf-card svc-rf sr" style="transition-delay:.5s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="svc-num-rf">SVC // 10</div><span class="svc-icon-rf">📖</span><div class="svc-title-rf">Ebook Design</div><p class="svc-desc-rf">Professional ebook layouts, cover design & formatting — ready for digital publishing and lead magnets.</p><a href="#contact" class="svc-cta-rf">Get Quote →</a></div>
+      <div class="rf-card svc-rf sr" style="transition-delay:.55s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="svc-num-rf">SVC // 11</div><span class="svc-icon-rf">✍️</span><div class="svc-title-rf">Content Writing</div><p class="svc-desc-rf">SEO-optimized blogs, website copy, product descriptions & social media content that converts.</p><a href="#contact" class="svc-cta-rf">Get Quote →</a></div>
     </div>
   </div>
 </section>
@@ -434,7 +484,264 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
       <div class="rf-card port-rf sr" style="transition-delay:.15s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 03</div><span class="port-rf-icon">💰</span><div class="port-rf-title">POS <span class="neon">SYSTEM</span></div><p class="port-rf-desc">Modern Point of Sale with inventory and sales tracking for retail business operations.</p></div>
       <div class="rf-card port-rf sr" style="transition-delay:.2s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 04</div><span class="port-rf-icon">📚</span><div class="port-rf-title">FORTUNE <span class="neon">ACADEMY</span></div><p class="port-rf-desc">Online learning portal for students and teachers with full course management capabilities.</p></div>
     </div>
-    <div class="port-cta-rf sr"><a href="https://mrusama1002.github.io/portfolio/" target="_blank" class="btn-outline-neon">[ Explore Full Portfolio → ]</a></div>
+    <div class="port-cta-rf sr"><a href="#contact" class="btn-outline-neon">[ Start Your Project → ]</a></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="rf-section" style="background:rgba(0,255,247,0.01);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="sr" style="text-align:center;">
+      <div class="s-eyebrow" style="justify-content:center;"><span class="s-eyebrow-box">Pricing</span></div>
+      <h2 class="s-title" style="text-align:center;">PLANS THAT <span class="neon">WORK</span><br/>FOR <span class="pink">EVERYONE</span></h2>
+      <p class="s-sub" style="margin:0 auto;">Transparent pricing with no hidden fees. All plans include free consultation.</p>
+    </div>
+    <!-- TABS -->
+    <div class="pricing-tabs sr">
+      <button class="ptab active" onclick="switchTab('website',this)">Website</button>
+      <button class="ptab" onclick="switchTab('mobile',this)">Mobile App</button>
+      <button class="ptab" onclick="switchTab('marketing',this)">Digital Marketing</button>
+      <button class="ptab" onclick="switchTab('ecommerce',this)">E-Commerce</button>
+    </div>
+
+    <!-- WEBSITE PLANS -->
+    <div class="pricing-panel active" id="panel-website">
+      <div class="price-card sr" style="transition-delay:.05s">
+        <div class="price-tier">TIER // 01</div>
+        <div class="price-name">BASIC WEBSITE</div>
+        <div class="price-amount"><span class="price-new">$399</span><span class="price-old">$600</span></div>
+        <div class="price-period">One-time payment</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Up to 5 Unique Pages</li>
+          <li>Mobile Responsive Design</li>
+          <li>Contact Form Integration</li>
+          <li>Basic SEO Setup</li>
+          <li>Social Media Links</li>
+          <li>48–72 Hour Delivery</li>
+          <li class="dim">CMS / Admin Panel</li>
+          <li class="dim">Custom Animations</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+      <div class="price-card featured sr" style="transition-delay:.1s">
+        <div class="price-badge">POPULAR</div>
+        <div class="price-tier">TIER // 02</div>
+        <div class="price-name">PROFESSIONAL</div>
+        <div class="price-amount"><span class="price-new">$799</span><span class="price-old">$1200</span></div>
+        <div class="price-period">One-time payment</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Up to 12 Unique Pages</li>
+          <li>Custom UI/UX Design</li>
+          <li>CMS / Admin Panel</li>
+          <li>Mobile Responsive</li>
+          <li>SEO Optimized</li>
+          <li>Custom Animations</li>
+          <li>Payment Integration</li>
+          <li>1 Month Free Support</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+      <div class="price-card sr" style="transition-delay:.15s">
+        <div class="price-tier">TIER // 03</div>
+        <div class="price-name">ENTERPRISE</div>
+        <div class="price-amount"><span class="price-new">$1499</span><span class="price-old">$2200</span></div>
+        <div class="price-period">One-time payment</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Unlimited Pages</li>
+          <li>Full Custom Development</li>
+          <li>Advanced CMS</li>
+          <li>Multi-language Support</li>
+          <li>API Integrations</li>
+          <li>Performance Optimized</li>
+          <li>3 Months Free Support</li>
+          <li>Dedicated Project Manager</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+    </div>
+
+    <!-- MOBILE APP PLANS -->
+    <div class="pricing-panel" id="panel-mobile">
+      <div class="price-card sr" style="transition-delay:.05s">
+        <div class="price-tier">TIER // 01</div>
+        <div class="price-name">STARTER APP</div>
+        <div class="price-amount"><span class="price-new">$999</span><span class="price-old">$1500</span></div>
+        <div class="price-period">One-time payment</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Android OR iOS</li>
+          <li>Up to 8 Screens</li>
+          <li>Basic UI Design</li>
+          <li>User Auth (Login/Register)</li>
+          <li>REST API Integration</li>
+          <li>Play Store / App Store Submission</li>
+          <li class="dim">Push Notifications</li>
+          <li class="dim">In-App Payments</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+      <div class="price-card featured sr" style="transition-delay:.1s">
+        <div class="price-badge">POPULAR</div>
+        <div class="price-tier">TIER // 02</div>
+        <div class="price-name">BUSINESS APP</div>
+        <div class="price-amount"><span class="price-new">$1999</span><span class="price-old">$3000</span></div>
+        <div class="price-period">One-time payment</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Android & iOS (Cross-platform)</li>
+          <li>Up to 20 Screens</li>
+          <li>Custom UI/UX Design</li>
+          <li>Push Notifications</li>
+          <li>In-App Payments</li>
+          <li>Backend + Admin Panel</li>
+          <li>Analytics Integration</li>
+          <li>2 Months Free Support</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+      <div class="price-card sr" style="transition-delay:.15s">
+        <div class="price-tier">TIER // 03</div>
+        <div class="price-name">ENTERPRISE APP</div>
+        <div class="price-amount"><span class="price-new">$3999</span><span class="price-old">$6000</span></div>
+        <div class="price-period">One-time payment</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Android & iOS + Web</li>
+          <li>Unlimited Screens</li>
+          <li>Custom Backend / API</li>
+          <li>CRM / ERP Integration</li>
+          <li>Advanced Analytics</li>
+          <li>Multi-role User System</li>
+          <li>6 Months Free Support</li>
+          <li>Dedicated Project Manager</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+    </div>
+
+    <!-- DIGITAL MARKETING PLANS -->
+    <div class="pricing-panel" id="panel-marketing">
+      <div class="price-card sr" style="transition-delay:.05s">
+        <div class="price-tier">TIER // 01</div>
+        <div class="price-name">STARTUP</div>
+        <div class="price-amount"><span class="price-new">$299</span><span class="price-old">$499</span></div>
+        <div class="price-period">Per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>2 Social Media Channels</li>
+          <li>12 Posts Per Month</li>
+          <li>Basic Graphics Design</li>
+          <li>Monthly Report</li>
+          <li>Facebook/Instagram Setup</li>
+          <li class="dim">Paid Ads Management</li>
+          <li class="dim">SEO Services</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+      <div class="price-card featured sr" style="transition-delay:.1s">
+        <div class="price-badge">POPULAR</div>
+        <div class="price-tier">TIER // 02</div>
+        <div class="price-name">GROWTH</div>
+        <div class="price-amount"><span class="price-new">$599</span><span class="price-old">$999</span></div>
+        <div class="price-period">Per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>4 Social Media Channels</li>
+          <li>20 Posts Per Month</li>
+          <li>Meta + TikTok Ads</li>
+          <li>Ad Budget Management</li>
+          <li>Custom Content Creation</li>
+          <li>Bi-weekly Reports</li>
+          <li>Competitor Analysis</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+      <div class="price-card sr" style="transition-delay:.15s">
+        <div class="price-tier">TIER // 03</div>
+        <div class="price-name">SCALE</div>
+        <div class="price-amount"><span class="price-new">$999</span><span class="price-old">$1500</span></div>
+        <div class="price-period">Per month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>All Social Channels</li>
+          <li>Unlimited Posts</li>
+          <li>Full Ads Management</li>
+          <li>SEO (On + Off Page)</li>
+          <li>Email Marketing</li>
+          <li>Weekly Reports</li>
+          <li>Dedicated Account Manager</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+    </div>
+
+    <!-- E-COMMERCE PLANS -->
+    <div class="pricing-panel" id="panel-ecommerce">
+      <div class="price-card sr" style="transition-delay:.05s">
+        <div class="price-tier">TIER // 01</div>
+        <div class="price-name">STARTUP STORE</div>
+        <div class="price-amount"><span class="price-new">$599</span><span class="price-old">$900</span></div>
+        <div class="price-period">One-time payment</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Up to 100 Products</li>
+          <li>Shopify / WooCommerce</li>
+          <li>Payment Gateway Setup</li>
+          <li>Mobile Responsive</li>
+          <li>Basic SEO</li>
+          <li class="dim">Custom Theme Development</li>
+          <li class="dim">Inventory Management</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+      <div class="price-card featured sr" style="transition-delay:.1s">
+        <div class="price-badge">POPULAR</div>
+        <div class="price-tier">TIER // 02</div>
+        <div class="price-name">PROFESSIONAL</div>
+        <div class="price-amount"><span class="price-new">$1199</span><span class="price-old">$1800</span></div>
+        <div class="price-period">One-time payment</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Unlimited Products</li>
+          <li>Custom Theme Design</li>
+          <li>Multi-payment Methods</li>
+          <li>Inventory Management</li>
+          <li>Order Tracking System</li>
+          <li>Discount & Coupon System</li>
+          <li>2 Months Free Support</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+      <div class="price-card sr" style="transition-delay:.15s">
+        <div class="price-tier">TIER // 03</div>
+        <div class="price-name">ENTERPRISE</div>
+        <div class="price-amount"><span class="price-new">$2499</span><span class="price-old">$3800</span></div>
+        <div class="price-period">One-time payment</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Custom Full-stack Store</li>
+          <li>ERP / CRM Integration</li>
+          <li>Multi-vendor Support</li>
+          <li>Advanced Analytics</li>
+          <li>Multi-currency & Language</li>
+          <li>Custom Admin Dashboard</li>
+          <li>6 Months Free Support</li>
+        </ul>
+        <a href="#contact" class="price-cta"><span>▶ Get Started</span></a>
+      </div>
+    </div>
+
+    <!-- GUARANTEES -->
+    <div class="price-guarantee sr">
+      <div class="pg-item"><span>💯</span>100% Satisfaction</div>
+      <div class="pg-item"><span>🔄</span>Unlimited Revisions</div>
+      <div class="pg-item"><span>🔒</span>100% Ownership Rights</div>
+      <div class="pg-item"><span>💰</span>Money Back Guarantee</div>
+      <div class="pg-item"><span>⚡</span>On-Time Delivery</div>
+    </div>
   </div>
 </section>
 
@@ -444,14 +751,14 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
     <div class="sr" style="text-align:center;">
       <div class="s-eyebrow" style="justify-content:center;"><span class="s-eyebrow-box">Our Team</span></div>
       <h2 class="s-title" style="text-align:center;">MEET THE <span class="neon">TEAM</span></h2>
-      <p class="s-sub" style="margin:0 auto;">7 specialists. 3 countries. One goal — your digital success.</p>
+      <p class="s-sub" style="margin:0 auto;">Dedicated specialists across 3 countries — built to deliver your project seamlessly.</p>
     </div>
     <div class="team-grid">
       <div class="rf-card team-card sr" style="transition-delay:.05s">
         <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
         <div class="team-avatar">👨‍💻</div>
-        <div class="team-name">MUHAMMAD USAMA</div>
-        <div class="team-role">Founder & Full Stack Dev</div>
+        <div class="team-name">FULL STACK DEVELOPER</div>
+        <div class="team-role">Lead Developer & CEO</div>
         <div class="team-loc">🇵🇰 Pakistan</div>
         <div class="team-tag">React • Node • Next.js</div>
       </div>
@@ -497,6 +804,14 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
       </div>
       <div class="rf-card team-card sr" style="transition-delay:.35s">
         <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+        <div class="team-avatar">🤝</div>
+        <div class="team-name">SALES TEAM</div>
+        <div class="team-role">Business Development & Sales</div>
+        <div class="team-loc">🇵🇰 Pakistan</div>
+        <div class="team-tag">Lead Gen • Outreach • Closing</div>
+      </div>
+      <div class="rf-card team-card sr" style="transition-delay:.4s">
+        <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
         <div class="team-avatar">🌍</div>
         <div class="team-name">INTERNATIONAL OPS</div>
         <div class="team-role">UK & Canada Partners</div>
@@ -520,7 +835,7 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
         <div class="ci-rf"><span class="ci-icon-rf">🇬🇧</span><div><span class="ci-lbl">UK Office</span><span class="ci-val">Leicester, United Kingdom</span></div></div>
         <div class="ci-rf"><span class="ci-icon-rf">🇨🇦</span><div><span class="ci-lbl">Canada Office</span><span class="ci-val">Canada</span></div></div>
         <div class="ci-rf"><span class="ci-icon-rf">🇵🇰</span><div><span class="ci-lbl">Dev Hub</span><span class="ci-val">Pakistan — Core Development Team</span></div></div>
-        <div class="ci-rf"><span class="ci-icon-rf">💼</span><div><span class="ci-lbl">LinkedIn</span><span class="ci-val">linkedin.com/in/mr-usama-khan</span></div></div>
+        <div class="ci-rf"><span class="ci-icon-rf">💼</span><div><span class="ci-lbl">LinkedIn</span><span class="ci-val">linkedin.com/company/orbixen-digital</span></div></div>
         <div class="ci-rf" style="border-color:rgba(37,211,102,0.25);"><span class="ci-icon-rf">💬</span><div><span class="ci-lbl" style="color:#25D366">WhatsApp</span><span class="ci-val">Tap the green button →</span></div></div>
         <div class="urgency-rf"><h4>▶ FREE 30-MIN STRATEGY CALL</h4><p>Book a <span class="hi">free consultation</span> and discover exactly how we can grow your business. No obligation — just results.</p></div>
       </div>
@@ -552,6 +867,8 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
               <option>Business Development</option>
               <option>Technology Assessment</option>
               <option>Tailored IT Strategies</option>
+              <option>Ebook Design</option>
+              <option>Content Writing</option>
             </select>
           </div>
           <div class="fg-rf"><label class="fg-label">Message</label><textarea id="f-msg" class="fg-input" placeholder="Tell us about your project..."></textarea></div>
@@ -566,9 +883,9 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
 <!-- FOOTER -->
 <footer>
   <div class="f-logo-rf">ORBIXEN //</div>
-  <div class="f-copy">© 2026 Orbixen Digital · Founded by Muhammad Usama Khan · UK • Canada • Pakistan</div>
+  <div class="f-copy">© 2026 Orbixen Digital · Software House & Digital Agency · UK • Canada • Pakistan</div>
   <div class="f-lnks">
-    <a href="#home">HOME</a><a href="#services">SERVICES</a><a href="#portfolio">WORK</a><a href="#team">TEAM</a><a href="#contact">CONTACT</a>
+    <a href="#home">HOME</a><a href="#services">SERVICES</a><a href="#pricing">PRICING</a><a href="#portfolio">WORK</a><a href="#team">TEAM</a><a href="#contact">CONTACT</a>
   </div>
 </footer>
 
@@ -660,6 +977,14 @@ async function handleSubmit(btn){
     btn.style.background='var(--neon)';btn.style.color='var(--bg)';
     setTimeout(()=>{btn.innerHTML='<span>▶ SEND MESSAGE — START FREE CONSULTATION</span>';btn.style.background='';btn.style.color='';btn.disabled=false;},4000);
   }
+}
+
+// PRICING TABS
+function switchTab(id, btn) {
+  document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
 }
 
 // GLITCH effect on logo
