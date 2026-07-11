@@ -19,13 +19,14 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Chakra Petch',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none;}
+a,button,.ptab,.price-cta,.f-submit-rf,.nav-cta,.btn-neon,.btn-outline-neon,.port-rf-link,.svc-cta-rf{cursor:none;pointer-events:auto;}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--neon);}
 
 /* CURSOR */
 #cur{width:6px;height:6px;background:var(--neon);position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}
-#cur-box{width:28px;height:28px;border:1px solid var(--neon);position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%) rotate(45deg);transition:all .08s linear;opacity:0.6;}
+#cur-box{width:28px;height:28px;border:1px solid var(--neon);position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%) rotate(45deg);transition:all .08s linear;opacity:0.6;}
 
 /* LOADER */
 #loader{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
@@ -66,7 +67,8 @@ nav.scrolled{padding:13px 5%;background:rgba(2,2,8,0.95);}
 
 /* HERO */
 #home{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;overflow:hidden;}
-.hero-inner{max-width:900px;}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.hero-inner{position:relative;max-width:900px;}
 .hero-tag{display:flex;align-items:center;gap:14px;margin-bottom:28px;animation:fadeUp .8s 2.5s ease both;}
 .hero-tag-dash{width:32px;height:1px;background:var(--neon);}
 .hero-tag-txt{font-size:0.68rem;letter-spacing:5px;text-transform:uppercase;color:var(--neon);font-weight:700;}
@@ -96,6 +98,33 @@ nav.scrolled{padding:13px 5%;background:rgba(2,2,8,0.95);}
 .sb-label{font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 
+/* HERO BADGE */
+.hero-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:rgba(0,255,247,0.04);backdrop-filter:blur(12px);padding:5px 16px 5px 10px;border-radius:999px;font-size:0.7rem;letter-spacing:2px;color:var(--muted);margin-bottom:24px;animation:fadeUp .8s 2.3s ease both;white-space:nowrap;}
+.hero-badge-icon{font-size:1rem;line-height:1;}
+.hero-badge a{color:var(--neon);text-decoration:none;font-weight:700;letter-spacing:2px;display:inline-flex;align-items:center;gap:4px;transition:opacity .2s;}
+.hero-badge a:hover{opacity:0.8;}
+.hero-badge-sep{width:1px;height:12px;background:var(--border);margin:0 4px;}
+
+/* AVAILABLE DOT */
+.avail-wrap{display:flex;align-items:center;gap:6px;margin-top:16px;animation:fadeUp .8s 2.4s ease both;}
+.avail-dot{position:relative;width:10px;height:10px;flex-shrink:0;}
+.avail-dot-ping{position:absolute;inset:0;border-radius:50%;background:rgba(34,197,94,0.7);animation:ping 1.4s cubic-bezier(0,0,.2,1) infinite;}
+.avail-dot-core{position:absolute;inset:2px;border-radius:50%;background:#22c55e;}
+@keyframes ping{75%,100%{transform:scale(2);opacity:0;}}
+.avail-txt{font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:#22c55e;font-family:'Space Mono',monospace;}
+
+/* HERO TITLE BOX */
+.hero-title-box{position:relative;border:1px solid var(--border);padding:32px 40px 28px;margin-bottom:28px;animation:fadeUp .8s 2.5s ease both;-webkit-mask-image:radial-gradient(ellipse 92% 85% at 50% 50%,#000 45%,transparent 100%);mask-image:radial-gradient(ellipse 92% 85% at 50% 50%,#000 45%,transparent 100%);}
+.hero-title-box .hero-title{margin-bottom:0;animation:none;}
+
+/* PLUS CORNER DECORATIONS */
+.plus-corner{position:absolute;width:20px;height:20px;display:flex;align-items:center;justify-content:center;}
+.plus-corner svg{width:20px;height:20px;stroke:var(--neon);stroke-width:2.5;fill:none;filter:drop-shadow(0 0 6px rgba(0,255,247,0.6));}
+.plus-tl{top:-10px;left:-10px;}
+.plus-tr{top:-10px;right:-10px;}
+.plus-bl{bottom:-10px;left:-10px;}
+.plus-br{bottom:-10px;right:-10px;}
+
 /* TICKER */
 .ticker-strip{position:relative;z-index:2;background:var(--neon);padding:10px 0;overflow:hidden;}
 .ticker-track{display:flex;animation:ticker 22s linear infinite;white-space:nowrap;}
@@ -114,7 +143,7 @@ nav.scrolled{padding:13px 5%;background:rgba(2,2,8,0.95);}
 
 /* RF CARD */
 .rf-card{border:1px solid var(--border);background:var(--card);backdrop-filter:blur(16px);transition:all .4s;position:relative;overflow:hidden;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));}
-.rf-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,255,247,0.04),transparent);opacity:0;transition:opacity .4s;}
+.rf-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,255,247,0.04),transparent);opacity:0;transition:opacity .4s;pointer-events:none;z-index:1;}
 .rf-card:hover{border-color:rgba(0,255,247,0.4);transform:translateY(-5px);box-shadow:0 0 30px rgba(0,255,247,0.08),inset 0 0 30px rgba(0,255,247,0.03);}
 .rf-card:hover::after{opacity:1;}
 .corner{position:absolute;width:12px;height:12px;}
@@ -156,7 +185,9 @@ nav.scrolled{padding:13px 5%;background:rgba(2,2,8,0.95);}
 .rf-card:hover .svc-cta-rf{letter-spacing:4px;border-color:var(--neon);}
 
 /* PORTFOLIO */
-.port-grid-rf{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1200px;margin:60px auto 0;}
+.port-grid-rf{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1200px;margin:60px auto 0;}
+@media(max-width:1100px){.port-grid-rf{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.port-grid-rf{grid-template-columns:1fr;}}
 .port-rf{padding:40px 36px;position:relative;}
 .port-rf-id{font-family:'Russo One',sans-serif;font-size:0.62rem;letter-spacing:5px;color:rgba(0,255,247,0.2);margin-bottom:24px;display:flex;align-items:center;gap:10px;}
 .port-rf-id::after{content:'';flex:1;height:1px;background:rgba(0,255,247,0.08);}
@@ -164,9 +195,10 @@ nav.scrolled{padding:13px 5%;background:rgba(2,2,8,0.95);}
 .port-rf-title{font-family:'Russo One',sans-serif;font-size:1.4rem;letter-spacing:0.05em;margin-bottom:12px;}
 .port-rf-title .neon{color:var(--neon);}
 .port-rf-desc{font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--muted);line-height:1.7;}
-.port-rf-links{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;}
-.port-rf-link{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--neon);text-decoration:none;font-weight:700;border-bottom:1px solid rgba(0,255,247,0.2);padding-bottom:2px;transition:all .3s;}
+.port-rf-links{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;position:relative;z-index:10;}
+.port-rf-link{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--neon);text-decoration:none;font-weight:700;border-bottom:1px solid rgba(0,255,247,0.2);padding-bottom:2px;transition:all .3s;position:relative;z-index:10;}
 .rf-card:hover .port-rf-link{border-color:var(--neon);}
+.port-rf-link:hover{color:var(--neon2);border-color:var(--neon2);}
 .port-cta-rf{display:flex;justify-content:center;margin-top:40px;}
 
 /* CONTACT */
@@ -357,16 +389,34 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
 
 <!-- HERO -->
 <section id="home">
+  <canvas id="heroCanvas"></canvas>
   <div class="hero-inner">
-    <div class="hero-tag">
-      <div class="hero-tag-dash"></div>
-      <span class="hero-tag-txt">Premium Software House & Digital Agency // UK • Canada • Pakistan</span>
+
+    <!-- BADGE PILL -->
+    <div class="hero-badge">
+      <span class="hero-badge-icon">◈</span>
+      Premium Software House &amp; Digital Agency
+      <span class="hero-badge-sep"></span>
+      <a href="#services">Explore Services <span>→</span></a>
     </div>
-    <h1 class="hero-title">
-      <span class="line"><span class="word w1">TRANSFORM</span></span>
-      <span class="line"><span class="word w2">IDEAS</span> <span class="word w3">INTO</span></span>
-      <span class="line"><span class="word w4">DIGITAL</span> <span class="word w5">SUCCESS</span></span>
-    </h1>
+
+    <!-- TITLE BOX with radial mask + plus corners -->
+    <div class="hero-title-box">
+      <span class="plus-corner plus-tl"><svg viewBox="0 0 20 20"><line x1="10" y1="0" x2="10" y2="20"/><line x1="0" y1="10" x2="20" y2="10"/></svg></span>
+      <span class="plus-corner plus-tr"><svg viewBox="0 0 20 20"><line x1="10" y1="0" x2="10" y2="20"/><line x1="0" y1="10" x2="20" y2="10"/></svg></span>
+      <span class="plus-corner plus-bl"><svg viewBox="0 0 20 20"><line x1="10" y1="0" x2="10" y2="20"/><line x1="0" y1="10" x2="20" y2="10"/></svg></span>
+      <span class="plus-corner plus-br"><svg viewBox="0 0 20 20"><line x1="10" y1="0" x2="10" y2="20"/><line x1="0" y1="10" x2="20" y2="10"/></svg></span>
+      <h1 class="hero-title">
+        <span class="line"><span class="word w1">TRANSFORM</span></span>
+        <span class="line"><span class="word w2">IDEAS</span> <span class="word w3">INTO</span></span>
+        <span class="line"><span class="word w4">DIGITAL</span> <span class="word w5">SUCCESS</span></span>
+      </h1>
+      <div class="avail-wrap">
+        <span class="avail-dot"><span class="avail-dot-ping"></span><span class="avail-dot-core"></span></span>
+        <span class="avail-txt">Available Now</span>
+      </div>
+    </div>
+
     <div class="hero-bottom">
       <div>
         <p class="hero-sub">We build <span>digital systems</span> that scale.<br/>Websites • Apps • Ads • Strategy.<br/>Offices in <span>UK & Canada</span> — Dev Hub in Pakistan.</p>
@@ -429,7 +479,7 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
                 <div style="font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">Countries</div>
               </div>
               <div style="border:1px solid var(--border);padding:12px;text-align:center;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">
-                <div style="font-family:'Russo One',sans-serif;font-size:1.4rem;color:var(--neon2);">11</div>
+                <div style="font-family:'Russo One',sans-serif;font-size:1.4rem;color:var(--neon2);">12</div>
                 <div style="font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">Services</div>
               </div>
               <div style="border:1px solid var(--border);padding:12px;text-align:center;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">
@@ -481,12 +531,12 @@ footer{position:relative;z-index:2;background:rgba(2,2,8,0.95);border-top:1px so
       <h2 class="s-title">FEATURED <span class="neon">WORK</span></h2>
     </div>
     <div class="port-grid-rf">
-      <div class="rf-card port-rf sr" style="transition-delay:.05s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 01</div><span class="port-rf-icon">👜</span><div class="port-rf-title">THE <span class="neon">LEATHER</span> FACTOR</div><p class="port-rf-desc">Complete branding, custom website design & full development for a premium leather goods brand.</p><div class="port-rf-links"><a href="https://www.theleatherfactor.com" target="_blank" rel="noopener noreferrer" class="port-rf-link">Visit Site →</a></div></div>
-      <div class="rf-card port-rf sr" style="transition-delay:.1s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 02</div><span class="port-rf-icon">📅</span><div class="port-rf-title">BOOKING<span class="neon">WHIZZ</span> CRM</div><p class="port-rf-desc">CRM with reporting, upselling & WhatsApp META integration for seamless customer management.</p><div class="port-rf-links"><a href="https://bookingwhizz.com" target="_blank" rel="noopener noreferrer" class="port-rf-link">bookingwhizz.com →</a><a href="https://crm-v2.bookingwhizz.com" target="_blank" rel="noopener noreferrer" class="port-rf-link">CRM Portal →</a></div></div>
-      <div class="rf-card port-rf sr" style="transition-delay:.15s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 03</div><span class="port-rf-icon">💰</span><div class="port-rf-title">POS <span class="neon">SYSTEM</span></div><p class="port-rf-desc">Modern Point of Sale with inventory and sales tracking for retail business operations.</p><div class="port-rf-links"><a href="https://mrusama1002.github.io/orbixen-digital/pos-system.html" target="_blank" rel="noopener noreferrer" class="port-rf-link">View Case Study →</a></div></div>
-      <div class="rf-card port-rf sr" style="transition-delay:.2s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 04</div><span class="port-rf-icon">📚</span><div class="port-rf-title">FORTUNE <span class="neon">ACADEMY</span></div><p class="port-rf-desc">Online learning portal for students and teachers with full course management capabilities.</p><div class="port-rf-links"><a href="https://www.fortuneacademy.com" target="_blank" rel="noopener noreferrer" class="port-rf-link">Visit Site →</a></div></div>
-      <div class="rf-card port-rf sr" style="transition-delay:.25s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 05</div><span class="port-rf-icon">🔘</span><div class="port-rf-title">THE FIRST <span class="neon">BUTTON</span></div><p class="port-rf-desc">Custom website design and development for a premium fashion & apparel brand.</p><div class="port-rf-links"><a href="https://www.thefirstbutton.com.pk" target="_blank" rel="noopener noreferrer" class="port-rf-link">Visit Site →</a></div></div>
-      <div class="rf-card port-rf sr" style="transition-delay:.3s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 06</div><span class="port-rf-icon">💇</span><div class="port-rf-title">SALON <span class="neon">MANAGEMENT</span> SYSTEM</div><p class="port-rf-desc">WhatsApp-based appointment booking with dedicated admin and salon staff management portals.</p><div class="port-rf-links"><a href="https://mrusama1002.github.io/orbixen-digital/salon-management-system.html" target="_blank" rel="noopener noreferrer" class="port-rf-link">View Case Study →</a></div></div>
+      <div class="rf-card port-rf sr" style="transition-delay:.05s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 01</div><span class="port-rf-icon">👜</span><div class="port-rf-title">THE <span class="neon">LEATHER</span> FACTOR</div><p class="port-rf-desc">Complete branding, custom website design & full development for a premium leather goods brand.</p><div class="port-rf-links"><a href="https://www.theleatherfactor.com" target="_blank" rel="noopener" class="port-rf-link">Visit Site →</a></div></div>
+      <div class="rf-card port-rf sr" style="transition-delay:.1s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 02</div><span class="port-rf-icon">📅</span><div class="port-rf-title">BOOKING<span class="neon">WHIZZ</span> CRM</div><p class="port-rf-desc">CRM with reporting, upselling & WhatsApp META integration for seamless customer management.</p><div class="port-rf-links"><a href="https://bookingwhizz.com" target="_blank" rel="noopener" class="port-rf-link">bookingwhizz.com →</a><a href="https://crm-v2.bookingwhizz.com" target="_blank" rel="noopener" class="port-rf-link">CRM Portal →</a></div></div>
+      <div class="rf-card port-rf sr" style="transition-delay:.15s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 03</div><span class="port-rf-icon">💰</span><div class="port-rf-title">POS <span class="neon">SYSTEM</span></div><p class="port-rf-desc">Modern Point of Sale with inventory and sales tracking for retail business operations.</p><div class="port-rf-links"><a href="https://mrusama1002.github.io/orbixen-digital/pos-system.html" target="_blank" rel="noopener" class="port-rf-link">View Case Study →</a></div></div>
+      <div class="rf-card port-rf sr" style="transition-delay:.2s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 04</div><span class="port-rf-icon">📚</span><div class="port-rf-title">FORTUNE <span class="neon">ACADEMY</span></div><p class="port-rf-desc">Online learning portal for students and teachers with full course management capabilities.</p><div class="port-rf-links"><a href="https://www.fortuneacademy.com" target="_blank" rel="noopener" class="port-rf-link">Visit Site →</a></div></div>
+      <div class="rf-card port-rf sr" style="transition-delay:.25s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 05</div><span class="port-rf-icon">🔘</span><div class="port-rf-title">THE FIRST <span class="neon">BUTTON</span></div><p class="port-rf-desc">Custom website design and development for a premium fashion & apparel brand.</p><div class="port-rf-links"><a href="https://www.thefirstbutton.com.pk" target="_blank" rel="noopener" class="port-rf-link">Visit Site →</a></div></div>
+      <div class="rf-card port-rf sr" style="transition-delay:.3s"><div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div><div class="port-rf-id">PROJECT // 06</div><span class="port-rf-icon">💇</span><div class="port-rf-title">SALON <span class="neon">MANAGEMENT</span> SYSTEM</div><p class="port-rf-desc">WhatsApp-based appointment booking with dedicated admin and salon staff management portals.</p><div class="port-rf-links"><a href="https://mrusama1002.github.io/orbixen-digital/salon-management-system.html" target="_blank" rel="noopener" class="port-rf-link">View Case Study →</a></div></div>
     </div>
     <div class="port-cta-rf sr"><a href="#contact" class="btn-outline-neon">[ Start Your Project → ]</a></div>
   </div>
@@ -981,6 +1031,121 @@ setInterval(()=>{
   logo.style.textShadow='2px 0 #ff00aa, -2px 0 #00fff7';
   setTimeout(()=>{logo.style.textShadow='0 0 20px rgba(0,255,247,0.5);';},80);
 },4000);
+</script>
+
+<!-- HERO FLOW-LINES CANVAS -->
+<script>
+(function(){
+  const canvas=document.getElementById('heroCanvas');
+  const heroSection=document.getElementById('home');
+  if(!canvas||!heroSection)return;
+  const ctx=canvas.getContext('2d');
+
+  const E={friction:0.5,trails:60,size:50,dampening:0.025,tension:0.99};
+  const pos={x:0,y:0};
+  let lines=[];
+  let running=true;
+
+  function Oscillator(o){this.phase=o.phase||0;this.offset=o.offset||0;this.frequency=o.frequency||0.001;this.amplitude=o.amplitude||1;}
+  Oscillator.prototype.update=function(){this.phase+=this.frequency;return this.offset+Math.sin(this.phase)*this.amplitude;};
+  const hue=new Oscillator({phase:Math.random()*2*Math.PI,amplitude:90,frequency:0.0015,offset:250});
+
+  function LineNode(){this.x=0;this.y=0;this.vx=0;this.vy=0;}
+
+  function FlowLine(o){
+    this.spring=o.spring+0.1*Math.random()-0.05;
+    this.friction=E.friction+0.01*Math.random()-0.005;
+    this.nodes=[];
+    for(let i=0;i<E.size;i++){const nd=new LineNode();nd.x=pos.x;nd.y=pos.y;this.nodes.push(nd);}
+  }
+  FlowLine.prototype.update=function(){
+    let spring=this.spring,nd=this.nodes[0];
+    nd.vx+=(pos.x-nd.x)*spring;
+    nd.vy+=(pos.y-nd.y)*spring;
+    for(let i=0,len=this.nodes.length;i<len;i++){
+      nd=this.nodes[i];
+      if(i>0){
+        const prev=this.nodes[i-1];
+        nd.vx+=(prev.x-nd.x)*spring;
+        nd.vy+=(prev.y-nd.y)*spring;
+        nd.vx+=prev.vx*E.dampening;
+        nd.vy+=prev.vy*E.dampening;
+      }
+      nd.vx*=this.friction;
+      nd.vy*=this.friction;
+      nd.x+=nd.vx;
+      nd.y+=nd.vy;
+      spring*=E.tension;
+    }
+  };
+  FlowLine.prototype.draw=function(){
+    let x=this.nodes[0].x,y=this.nodes[0].y,i;
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    for(i=1;i<this.nodes.length-2;i++){
+      const cur=this.nodes[i],next=this.nodes[i+1];
+      x=0.5*(cur.x+next.x);
+      y=0.5*(cur.y+next.y);
+      ctx.quadraticCurveTo(cur.x,cur.y,x,y);
+    }
+    const cur=this.nodes[i],next=this.nodes[i+1];
+    ctx.quadraticCurveTo(cur.x,cur.y,next.x,next.y);
+    ctx.stroke();
+    ctx.closePath();
+  };
+
+  function initLines(){
+    lines=[];
+    for(let i=0;i<E.trails;i++)lines.push(new FlowLine({spring:0.45+(i/E.trails)*0.025}));
+  }
+
+  function heroPoint(clientX,clientY){
+    const r=heroSection.getBoundingClientRect();
+    return {x:clientX-r.left,y:clientY-r.top};
+  }
+  function updatePos(e){
+    const p=e.touches?heroPoint(e.touches[0].clientX,e.touches[0].clientY):heroPoint(e.clientX,e.clientY);
+    pos.x=p.x;pos.y=p.y;
+  }
+  function handleTouchStart(e){if(e.touches.length===1)updatePos(e);}
+
+  function onFirstMove(e){
+    document.removeEventListener('mousemove',onFirstMove);
+    document.removeEventListener('touchstart',onFirstMove);
+    document.addEventListener('mousemove',updatePos);
+    document.addEventListener('touchmove',updatePos);
+    document.addEventListener('touchstart',handleTouchStart);
+    updatePos(e);
+    initLines();
+    render();
+  }
+
+  function render(){
+    if(!running)return;
+    ctx.globalCompositeOperation='source-over';
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.globalCompositeOperation='lighter';
+    ctx.strokeStyle='hsla('+Math.round(hue.update())+',100%,55%,0.03)';
+    ctx.lineWidth=4;
+    for(let i=0;i<E.trails;i++){const line=lines[i];line.update();line.draw();}
+    requestAnimationFrame(render);
+  }
+
+  function resizeCanvas(){
+    canvas.width=heroSection.offsetWidth;
+    canvas.height=heroSection.offsetHeight;
+  }
+
+  document.addEventListener('mousemove',onFirstMove);
+  document.addEventListener('touchstart',onFirstMove);
+  window.addEventListener('resize',resizeCanvas);
+  window.addEventListener('focus',()=>{if(!running){running=true;render();}});
+  window.addEventListener('blur',()=>{running=false;});
+
+  resizeCanvas();
+  pos.x=canvas.width/2;
+  pos.y=canvas.height/2;
+})();
 </script>
 </body>
 </html>
