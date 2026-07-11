@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>POS System — Case Study | Orbixen Digital</title>
+<meta name="description" content="A modern Point of Sale system by Orbixen Digital — fast checkout, live inventory tracking, and sales reporting for retail businesses."/>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Chakra+Petch:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#020208;
+  --neon:#00fff7;
+  --neon2:#ff00aa;
+  --yellow:#ffe600;
+  --white:#eef6ff;
+  --muted:rgba(180,210,255,0.55);
+  --card:rgba(0,255,247,0.03);
+  --border:rgba(0,255,247,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Chakra Petch',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--neon);}
+
+.go{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(120px);}
+.go1{width:500px;height:500px;background:rgba(0,255,247,0.07);top:-150px;right:-100px;}
+.go2{width:420px;height:420px;background:rgba(255,0,170,0.07);bottom:5%;left:-120px;}
+.scanlines{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);}
+
+nav{position:relative;z-index:10;padding:20px 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(0,255,247,0.08);background:rgba(2,2,8,0.9);backdrop-filter:blur(20px);}
+.nav-logo{font-family:'Russo One',sans-serif;font-size:1.2rem;letter-spacing:0.15em;color:var(--neon);text-decoration:none;text-shadow:0 0 20px rgba(0,255,247,0.5);}
+.back-link{color:var(--muted);text-decoration:none;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;transition:color .3s;}
+.back-link:hover{color:var(--neon);}
+
+.wrap{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 5%;}
+
+/* HERO */
+.case-hero{padding:90px 0 60px;}
+.case-tag{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.case-tag-dash{width:32px;height:1px;background:var(--neon);}
+.case-tag-txt{font-size:0.65rem;letter-spacing:5px;text-transform:uppercase;color:var(--neon);font-weight:700;}
+.case-title{font-family:'Russo One',sans-serif;font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.05;letter-spacing:0.02em;margin-bottom:22px;}
+.case-title .neon{color:var(--neon);text-shadow:0 0 30px rgba(0,255,247,0.4);}
+.case-sub{font-family:'Space Mono',monospace;font-size:0.9rem;color:var(--muted);max-width:620px;line-height:1.85;margin-bottom:36px;}
+.case-meta{display:flex;gap:40px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:28px;}
+.cm-item{}
+.cm-label{font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.cm-val{font-family:'Russo One',sans-serif;font-size:0.95rem;color:var(--white);}
+.status-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--yellow);color:var(--yellow);padding:5px 14px;font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;background:rgba(255,230,0,0.05);}
+.status-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 8px var(--yellow);}
+.status-pill.live{border-color:var(--neon);color:var(--neon);background:rgba(0,255,247,0.05);}
+.status-pill.live::before{background:var(--neon);box-shadow:0 0 8px var(--neon);}
+
+/* SECTION */
+.sec{padding:60px 0;border-top:1px solid var(--border);}
+.s-eyebrow-box{display:inline-block;border:1px solid var(--neon);color:var(--neon);padding:3px 12px;font-size:0.6rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;background:rgba(0,255,247,0.04);margin-bottom:16px;}
+.s-title{font-family:'Russo One',sans-serif;font-size:clamp(1.6rem,4vw,2.6rem);letter-spacing:0.04em;line-height:1.1;margin-bottom:18px;}
+.s-title .neon{color:var(--neon);}
+.s-text{font-family:'Space Mono',monospace;font-size:0.85rem;color:var(--muted);line-height:1.9;max-width:680px;}
+
+/* FEATURE GRID */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;}
+.rf-card{border:1px solid var(--border);background:var(--card);backdrop-filter:blur(16px);transition:all .35s;padding:32px 26px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));position:relative;}
+.rf-card:hover{border-color:rgba(0,255,247,0.4);transform:translateY(-4px);box-shadow:0 0 30px rgba(0,255,247,0.08);}
+.feat-icon{font-size:1.9rem;margin-bottom:16px;display:block;filter:drop-shadow(0 0 10px rgba(0,255,247,0.3));}
+.feat-title{font-family:'Russo One',sans-serif;font-size:0.95rem;letter-spacing:0.03em;margin-bottom:10px;}
+.feat-desc{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--muted);line-height:1.75;}
+.tag-mini{position:absolute;top:16px;right:16px;font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid rgba(0,255,247,0.3);color:var(--neon);background:rgba(0,255,247,0.05);}
+.tag-mini.planned{border-color:rgba(255,230,0,0.4);color:var(--yellow);background:rgba(255,230,0,0.05);}
+
+/* STATS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;}
+.stat-box{border:1px solid var(--border);background:var(--card);padding:26px 20px;text-align:center;}
+.stat-num{font-family:'Russo One',sans-serif;font-size:1.9rem;color:var(--neon);text-shadow:0 0 20px rgba(0,255,247,0.4);}
+.stat-label{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+
+/* NOTE BOX */
+.note-box{border:1px dashed rgba(255,230,0,0.35);background:rgba(255,230,0,0.03);padding:22px 26px;margin-top:36px;display:flex;gap:16px;align-items:flex-start;}
+.note-icon{font-size:1.3rem;line-height:1;}
+.note-text{font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--muted);line-height:1.8;}
+.note-text b{color:var(--yellow);}
+
+/* CTA */
+.cta-box{border:1px solid var(--border);background:var(--card);padding:50px 40px;text-align:center;margin:70px 0;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));}
+.cta-box .s-title{margin-bottom:14px;}
+.btn-neon{background:transparent;border:1px solid var(--neon);color:var(--neon);padding:14px 32px;font-family:'Chakra Petch',sans-serif;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;text-decoration:none;display:inline-block;transition:all .3s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);margin-top:12px;}
+.btn-neon:hover{background:var(--neon);color:var(--bg);box-shadow:0 0 40px rgba(0,255,247,0.5);}
+
+footer{position:relative;z-index:2;padding:30px 5%;border-top:1px solid var(--border);text-align:center;font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--muted);}
+footer a{color:var(--neon);text-decoration:none;}
+
+@media(max-width:900px){
+  .feat-grid{grid-template-columns:1fr 1fr;}
+  .stat-row{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:560px){
+  .feat-grid,.stat-row{grid-template-columns:1fr;}
+  .case-meta{gap:24px;}
+}
+</style>
+</head>
+<body>
+
+<div class="go go1"></div>
+<div class="go go2"></div>
+<div class="scanlines"></div>
+
+<nav>
+  <a href="https://mrusama1002.github.io/orbixen-digital/" class="nav-logo">ORBIXEN</a>
+  <a href="https://mrusama1002.github.io/orbixen-digital/#portfolio" class="back-link">← Back to Work</a>
+</nav>
+
+<div class="wrap">
+
+  <section class="case-hero">
+    <div class="case-tag"><div class="case-tag-dash"></div><div class="case-tag-txt">Case Study // Retail Software</div></div>
+    <h1 class="case-title">POS <span class="neon">SYSTEM</span></h1>
+    <p class="case-sub">A modern Point of Sale built for speed at the counter. Fast checkout, live inventory tracking, and clear sales reporting — designed to replace manual billing and give retail owners real visibility into their business.</p>
+    <div class="case-meta">
+      <div class="cm-item"><div class="cm-label">Industry</div><div class="cm-val">Retail</div></div>
+      <div class="cm-item"><div class="cm-label">Type</div><div class="cm-val">Web-based POS</div></div>
+      <div class="cm-item"><div class="cm-label">Core</div><div class="cm-val">Sales · Inventory · Reports</div></div>
+      <div class="cm-item"><div class="cm-label">Status</div><div class="cm-val"><span class="status-pill live">Active Development</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="s-eyebrow-box">Overview</div>
+    <h2 class="s-title">Faster checkout.<br/><span class="neon">Clearer numbers.</span></h2>
+    <p class="s-text">Retail businesses running on manual registers or spreadsheets lose time and accuracy at every sale. This POS system centralizes checkout, stock, and reporting in one interface — so staff can ring up sales quickly while owners always know exactly what's selling and what's running low.</p>
+  </section>
+
+  <section class="sec">
+    <div class="s-eyebrow-box">Modules</div>
+    <h2 class="s-title">What the system <span class="neon">covers.</span></h2>
+    <div class="feat-grid">
+      <div class="rf-card">
+        <span class="feat-icon">🧾</span>
+        <div class="feat-title">Sales &amp; Checkout</div>
+        <div class="feat-desc">Fast cart-based billing with discounts, multiple payment methods, and instant receipt generation.</div>
+      </div>
+      <div class="rf-card">
+        <span class="feat-icon">📦</span>
+        <div class="feat-title">Inventory Management</div>
+        <div class="feat-desc">Real-time stock levels across products, with low-stock alerts to avoid running out mid-sale.</div>
+      </div>
+      <div class="rf-card">
+        <span class="feat-icon">🏷️</span>
+        <div class="feat-title">Product &amp; Category Management</div>
+        <div class="feat-desc">Organize the full catalog by category, pricing, and variants for quick lookup at checkout.</div>
+      </div>
+      <div class="rf-card">
+        <span class="feat-icon">📊</span>
+        <div class="feat-title">Sales Reports</div>
+        <div class="feat-desc">Daily and monthly breakdowns of revenue, top products, and staff performance.</div>
+      </div>
+      <div class="rf-card">
+        <span class="feat-icon">🔐</span>
+        <div class="feat-title">User Roles</div>
+        <div class="feat-desc">Separate access levels for cashiers and admins, keeping sensitive data and settings protected.</div>
+      </div>
+      <div class="rf-card">
+        <span class="feat-icon">🖨️</span>
+        <div class="feat-title">Receipts &amp; Invoicing</div>
+        <div class="feat-desc">Printable or digital receipts generated automatically at the end of every transaction.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="s-eyebrow-box">On The Roadmap</div>
+    <h2 class="s-title">Modules being <span class="neon">evaluated.</span></h2>
+    <div class="feat-grid">
+      <div class="rf-card"><span class="tag-mini planned">Planned</span>
+        <span class="feat-icon">🏬</span>
+        <div class="feat-title">Multi-Branch Support</div>
+        <div class="feat-desc">Manage stock and sales across multiple outlets from a single dashboard.</div>
+      </div>
+      <div class="rf-card"><span class="tag-mini planned">Planned</span>
+        <span class="feat-icon">📇</span>
+        <div class="feat-title">Customer Database</div>
+        <div class="feat-desc">Track repeat customers and lay the groundwork for loyalty programs.</div>
+      </div>
+      <div class="rf-card"><span class="tag-mini planned">Planned</span>
+        <span class="feat-icon">↩️</span>
+        <div class="feat-title">Returns &amp; Refunds</div>
+        <div class="feat-desc">Structured return flow tied back to inventory and sales records.</div>
+      </div>
+      <div class="rf-card"><span class="tag-mini planned">Planned</span>
+        <span class="feat-icon">📷</span>
+        <div class="feat-title">Barcode Scanning</div>
+        <div class="feat-desc">Scanner support for faster product lookup at the counter.</div>
+      </div>
+      <div class="rf-card"><span class="tag-mini planned">Planned</span>
+        <span class="feat-icon">🚚</span>
+        <div class="feat-title">Supplier &amp; Purchase Orders</div>
+        <div class="feat-desc">Track incoming stock and supplier costs alongside outgoing sales.</div>
+      </div>
+      <div class="rf-card"><span class="tag-mini planned">Planned</span>
+        <span class="feat-icon">📶</span>
+        <div class="feat-title">Offline Mode</div>
+        <div class="feat-desc">Keep sales running during internet outages, syncing once back online.</div>
+      </div>
+    </div>
+    <div class="note-box">
+      <div class="note-icon">🛠️</div>
+      <div class="note-text"><b>Note:</b> This module breakdown is a draft. It will be updated to reflect exactly what's built vs. planned once the codebase is reviewed.</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="s-eyebrow-box">Why It Matters</div>
+    <h2 class="s-title">Built for the <span class="neon">counter, not the back office.</span></h2>
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">1</div><div class="stat-label">Screen To Check Out</div></div>
+      <div class="stat-box"><div class="stat-num">⚡</div><div class="stat-label">Real-Time Stock Sync</div></div>
+      <div class="stat-box"><div class="stat-num">2</div><div class="stat-label">User Role Levels</div></div>
+      <div class="stat-box"><div class="stat-num">↓</div><div class="stat-label">Manual Billing Errors</div></div>
+    </div>
+  </section>
+
+  <div class="cta-box">
+    <h2 class="s-title">Need a POS built<br/>for <span class="neon">your retail business?</span></h2>
+    <p class="s-text" style="margin:0 auto 8px;text-align:center;">Get in touch to discuss a POS system tailored to your store, inventory, and sales workflow.</p>
+    <a href="https://mrusama1002.github.io/orbixen-digital/#contact" class="btn-neon">▶ Start Your Project</a>
+  </div>
+
+</div>
+
+<footer>
+  ORBIXEN DIGITAL // Software House &amp; Digital Agency · <a href="https://mrusama1002.github.io/orbixen-digital/">Back to Home</a>
+</footer>
+
+</body>
+</html>
