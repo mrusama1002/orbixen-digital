@@ -1,0 +1,22 @@
+# Purchase Order Management System
+
+A web-based Purchase Order Management System, designed to help businesses manage vendors, purchase orders, and inventory in one centralized platform — replacing manual, spreadsheet-based order tracking.
+
+## Overview
+
+The system allows businesses to create and track purchase orders placed with vendors, manage product inventory, and generate professional PO documents — all through a clean admin dashboard.
+
+## Key Features
+
+- **Vendor Management** — Add and manage supplier/vendor records
+- **Purchase Order Creation** — Create orders with multiple line items, quantities, and pricing
+- **Barcode Scanning** — Quickly add products to an order using a barcode scanner
+- **Tax & Discount Calculation** — Automatic calculation of taxes and discounts per order
+- **PDF & Email Export** — Generate and send professional purchase order documents to vendors
+- **Dashboard & Reporting** — Real-time overview of order counts, amounts, and business metrics
+- **Multi-User Access** — Role-based login for admins and staff
+- **Dynamic Settings Panel** — Configure company info, logo, currency, and timezone without touching code
+
+## Purpose
+
+Built to solve a common pain point for small-to-medium businesses: tracking purchase orders and vendor communication without relying on manual registers or Excel sheets. The system centralizes vendor relationships, order history, and financial calculations into a single, auditable platform.
