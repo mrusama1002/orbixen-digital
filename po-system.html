@@ -99,6 +99,23 @@ footer a{color:var(--neon);text-decoration:none;}
   .feat-grid,.stat-row{grid-template-columns:1fr;}
   .case-meta{gap:24px;}
 }
+/* MODULE TABLE */
+.mod-table{width:100%;border-collapse:collapse;margin-top:36px;font-family:'Space Mono',monospace;}
+.mod-table thead tr{border-bottom:2px solid var(--neon);}
+.mod-table thead th{font-family:'Russo One',sans-serif;font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--neon);padding:10px 16px;text-align:left;font-weight:700;}
+.mod-table tbody tr{border-bottom:1px solid rgba(0,255,247,0.07);transition:background .25s;}
+.mod-table tbody tr:hover{background:rgba(0,255,247,0.03);}
+.mod-table td{padding:22px 16px;vertical-align:top;font-size:0.8rem;line-height:1.85;color:var(--muted);}
+.mod-table td:first-child{white-space:nowrap;font-family:'Russo One',sans-serif;font-size:0.85rem;color:var(--white);letter-spacing:0.05em;min-width:170px;}
+.mod-table td:first-child .mod-tag{display:block;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--neon);margin-top:5px;font-weight:700;opacity:0.7;}
+.mod-highlight{color:var(--neon);}
+@media(max-width:700px){
+  .mod-table,.mod-table thead,.mod-table tbody,.mod-table tr,.mod-table td{display:block;}
+  .mod-table thead{display:none;}
+  .mod-table tbody tr{padding:20px 0;border-bottom:1px solid rgba(0,255,247,0.1);}
+  .mod-table td{padding:4px 0;}
+  .mod-table td:first-child{color:var(--neon);margin-bottom:8px;}
+}
 </style>
 </head>
 <body>
@@ -183,6 +200,50 @@ footer a{color:var(--neon);text-decoration:none;}
         <div class="feat-desc">Self-service setup wizard handles database connection and initial config on first run — no command-line deployment needed.</div>
       </div>
     </div>
+  </section>
+
+  <section class="sec">
+    <div class="s-eyebrow-box">Modules</div>
+    <h2 class="s-title">Everything in one <span class="neon">place.</span></h2>
+    <p class="s-text">Four tightly scoped modules — each built to eliminate a specific manual step, not just digitise it.</p>
+    <table class="mod-table">
+      <thead>
+        <tr>
+          <th>Module</th>
+          <th>What it does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Purchase Orders
+            <span class="mod-tag">Module // 01</span>
+          </td>
+          <td>Vendor records, itemized orders with <span class="mod-highlight">tax and discount rules applied automatically</span>, one-click PDF and Excel export, and an email to the vendor the moment an order is placed.</td>
+        </tr>
+        <tr>
+          <td>
+            Sales Orders
+            <span class="mod-tag">Module // 02</span>
+          </td>
+          <td>Every line records both cost and sale price, so <span class="mod-highlight">profit is a by-product of entering the sale</span> — not a separate calculation. New products can be typed straight into the order and are created on save. Customer-facing invoices show price and total only.</td>
+        </tr>
+        <tr>
+          <td>
+            Dashboard
+            <span class="mod-tag">Module // 03</span>
+          </td>
+          <td>Month-by-month purchase and sales/profit charts, with <span class="mod-highlight">date-range-filterable totals</span> for spend, order count, revenue, and margin — all on one screen.</td>
+        </tr>
+        <tr>
+          <td>
+            Access &amp; Settings
+            <span class="mod-tag">Module // 04</span>
+          </td>
+          <td>Role-based access across <span class="mod-highlight">Super Admin, Admin, and Sub Admin</span>, tenant suspension, and a settings layer that can be backed by the database, a JSON file, or Redis depending on deployment.</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <section class="sec">

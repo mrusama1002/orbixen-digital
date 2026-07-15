@@ -1,0 +1,15 @@
+Hi [Name],
+
+I'm [Your Name] from Orbixen Digital. We build a *Purchase Order Management System* for businesses like yours — vendors, orders, inventory, all in one dashboard instead of spreadsheets.
+
+Key features:
+📦 Vendor management
+🧾 PO creation with barcode scanning
+💰 Auto tax & discount calculation
+📤 PDF export + email to vendors
+📊 Live dashboard & reporting
+👥 Multi-user, role-based access
+
+We're offering early subscribers a discounted monthly plan + free setup.
+
+Would you be open to a quick 10-min call this week to see if it fits your business?
